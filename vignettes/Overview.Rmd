@@ -1,0 +1,81 @@
+---
+title: "Guardener"
+author: "Christiaan Pauw and Alex Howard"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+library(Gardener)
+```
+
+# Get access token
+
+You need to have a username and password. For the defaults, Uuse usethis::edit_r_environ() to edit the R environment. These value are be retrived with Sys.getenv("guardianUn") and Sys.getenv("guardianPw")
+
+```{r}
+ATL <- Glogin()
+ATL$role
+ATL$did
+ATL$username
+AT <- ATL$accessToken # only the accestoken
+```
+
+# Get list of policies 
+
+If the role is Standards Regsitry (or installer?), the use can request a policy list (of tibble when returndf = TRUE )
+
+```{r}
+dfPolicies <- GgetPolicies(AT, returndf = TRUE)
+```
+
+
+# Get an individual policy
+
+```{r}
+policy <- GgetPolicy(AT, policyId = dfPolicies$id[[1]], returndf = TRUE)
+```
+Information about the block are inside the $config column
+
+Isnspect the config:
+
+```{r}
+dfConfig <- GgetPolicyConfig(accessToken = AT,  policyId = dfPolicies$id[[1]]) %>% 
+  unnest(cols = c(children)) %>% 
+   unnest(cols = c(children))
+```
+
+
+# Get blocks from policy
+
+Do all of the above in one step
+
+```{r}
+blocks <- GgetPolicyBlocks(AT, policyId = dfPolicies$id)
+```
+
+Relevant blocks for action are typically of type "requestVcDocumentBlock"
+
+```{r}
+blocks %>% filter(blockType == "requestVcDocumentBlock")
+```
+# Get schemas associated with block
+
+```{r}
+blocks[1, c(3,8)]
+#Schema_requestVcDocumentBlock <- GgetSchemas(AT, schemaId = unlist(blocks[1, c(8)]), returndf = TRUE)
+dfSchemas <- GgetSchemas(AT,  returndf = TRUE) # "/schema/{schemaId}" gives a 500 so get everything and filter
+dfMSchemas <- dfSchemas %>% 
+  filter(name == "Monitoring Report (MR)") %>% 
+  GmakeSchemaTemplate()
+```
+
+

@@ -1,0 +1,13 @@
+Package: Guardener
+Type: Package
+Title: Convenience functions to interact with Hedera Guardian API
+Version: 0.1.0
+Author: Christiaan Pauw
+Maintainer: cjpauw@gmail.com
+Description: More about what it does (maybe more than one line)
+    Use four spaces when indenting paragraphs within the Description.
+License: Apache Licence 2.2
+Encoding: UTF-8
+LazyData: true
+VignetteBuilder: knitr
+RoxygenNote: 7.2.2
