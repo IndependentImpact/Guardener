@@ -10,19 +10,19 @@ vignette: >
 ---
 
 ```{r setup, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
+knitr::opts_chunk$set(message = FALSE, echo = FALSE, warning = FALSE, collapse = TRUE,
   comment = "#>"
 )
-library(Gardener)
+library(Guardener)
+library(tidyverse)
 ```
 
 # Get access token
 
-You need to have a username and password. For the defaults, Uuse usethis::edit_r_environ() to edit the R environment. These value are be retrived with Sys.getenv("guardianUn") and Sys.getenv("guardianPw")
+You need to have a username and password. For the defaults, Uuse usethis::edit_r_environ() to edit the R environment. These value are be retrieved with Sys.getenv("guardianUn") and Sys.getenv("guardianPW")
 
 ```{r}
-ATL <- Glogin()
+ATL <- Glogin(un = "StandardRegistry", pw =  "test")
 ATL$role
 ATL$did
 ATL$username
@@ -33,7 +33,7 @@ AT <- ATL$accessToken # only the accestoken
 
 If the role is Standards Regsitry (or installer?), the use can request a policy list (of tibble when returndf = TRUE )
 
-```{r}
+```{r }
 dfPolicies <- GgetPolicies(AT, returndf = TRUE)
 ```
 
@@ -41,25 +41,25 @@ dfPolicies <- GgetPolicies(AT, returndf = TRUE)
 # Get an individual policy
 
 ```{r}
-policy <- GgetPolicy(AT, policyId = dfPolicies$id[[1]], returndf = TRUE)
+policyid <- dfPolicies$id[[4]]
+policy <- GgetPolicy(AT, policyId = policyid, returndf = TRUE)
 ```
 Information about the block are inside the $config column
 
-Isnspect the config:
+Inspect the config:
 
 ```{r}
-dfConfig <- GgetPolicyConfig(accessToken = AT,  policyId = dfPolicies$id[[1]]) %>% 
+dfConfig <- GgetPolicyConfig(accessToken = AT,  policyId = policyid) %>% 
   unnest(cols = c(children)) %>% 
    unnest(cols = c(children))
 ```
-
 
 # Get blocks from policy
 
 Do all of the above in one step
 
 ```{r}
-blocks <- GgetPolicyBlocks(AT, policyId = dfPolicies$id)
+blocks <- GgetPolicyBlocks(AT, policyId = policyid)
 ```
 
 Relevant blocks for action are typically of type "requestVcDocumentBlock"
@@ -70,12 +70,24 @@ blocks %>% filter(blockType == "requestVcDocumentBlock")
 # Get schemas associated with block
 
 ```{r}
-blocks[1, c(3,8)]
 #Schema_requestVcDocumentBlock <- GgetSchemas(AT, schemaId = unlist(blocks[1, c(8)]), returndf = TRUE)
 dfSchemas <- GgetSchemas(AT,  returndf = TRUE) # "/schema/{schemaId}" gives a 500 so get everything and filter
-dfMSchemas <- dfSchemas %>% 
-  filter(name == "Monitoring Report (MR)") %>% 
-  GmakeSchemaTemplate()
 ```
+
+
+```{r}
+dfTemplates <- dfSchemas %>% 
+  GmakeSchemaTemplate() %>% 
+  mutate(templ = map(data, ~names2tibble(.) )) %>% 
+  ungroup() %>% 
+  select(-data)
+```
+
+Populate the Monitoring Report (MR)  tempate and submit.
+
+```{r}
+dfM <- dfTemplates %>% filter(name == "Monitoring Report (MR)") %>% unnest(templ)
+```
+
 
 
