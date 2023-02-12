@@ -24,7 +24,4 @@ whichBlocksHasSchema <- function(dfBlocks,
 
   dfBlocks %>% filter(.[[!!schemaname]] %in% schemaId)
 
-
-
-
 }
