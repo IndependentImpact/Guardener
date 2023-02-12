@@ -19,6 +19,3 @@ GmakeBody <- function(document = NULL, schemaID = NULL, schemaIPFSurl = NULL){
           '@context' = schemaIPFSurl)
         )
 }
-
-un
-
