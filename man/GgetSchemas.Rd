@@ -12,6 +12,7 @@ GgetSchemas(
   pageIndex = 0,
   pageSize = 10,
   topicId = NULL,
+  schemaId = NULL,
   returndf = FALSE
 )
 }
