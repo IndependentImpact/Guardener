@@ -12,7 +12,7 @@
 #' @return
 #' @export
 
-Gpost2Schema <- function(accessToken = NULL,
+Gpost2block <- function(accessToken = NULL,
                          document = NULL,
                          schemaID = NULL,
                          schemaIPFSurl = NULL,
@@ -20,9 +20,9 @@ Gpost2Schema <- function(accessToken = NULL,
                          BlockId = NULL,
                          baseurl = "http://localhost:3000/"){
   if (map_lgl(list(accessToken , document , schemaID, schemaIPFSurl , policyId, BlockId ), ~all(is.null(.)|is.na(.))) %>% any()) stop("None of ccessToken , document , schemaID, schemaIPFSurl , policyIdor BlockId may be NULL")
-  POST(
+  httr::POST(
     url = sprintf("%sapi/v1/policies/%s/blocks/%s", baseurl, policyId, BlockId),
-    add_headers(Authorization = sprintf("Bearer %s", accessToken)),
+    httr::add_headers(Authorization = sprintf("Bearer %s", accessToken)),
     body = GmakeBody(document, schemaID, schemaIPFSurl),
     encode = "json")
 }
