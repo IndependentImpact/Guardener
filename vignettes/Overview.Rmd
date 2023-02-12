@@ -42,6 +42,7 @@ dfPolicies <- GgetPolicies(AT, returndf = TRUE)
 
 ```{r}
 policyid <- dfPolicies$id[[4]]
+policyids <- dfPolicies$id
 policy <- GgetPolicy(AT, policyId = policyid, returndf = TRUE)
 ```
 Information about the block are inside the $config column
