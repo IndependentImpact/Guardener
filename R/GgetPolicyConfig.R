@@ -5,10 +5,14 @@ GgetPolicyConfig <- function(accessToken = NULL,
                              policyId = NULL,
                              returndf = FALSE,
                              ...){
-  policy <- GgetPolicy(accessToken = AT, un = un, pw = pw, baseurl = baseurl, policyId = policyId)
-  df <- Glist2tibble(policy$config, flatfirst = F)
-  nn <- names(df)[map_lgl(df, ~length(.[[1]]) > 1)]
-  df <- df %>% unnest(cols = -{{nn}})
-  nn2 <- names(df)[map_lgl(df, ~length(.[[1]]) > 1)]
-  df %>% unnest(cols = -{{nn2}})
+  res <- map_df(policyId, ~{
+    message(.)
+    ID = .
+    policy <- GgetPolicy(accessToken = AT, un = un, pw = pw, baseurl = baseurl, policyId = .)
+    df <- Glist2tibble(policy$config, flatfirst = F)
+    nn <- names(df)[map_lgl(df, ~length(.[[1]]) > 1)]
+    df <- df %>% unnest(cols = -{{nn}})
+    nn2 <- names(df)[map_lgl(df, ~length(.[[1]]) > 1)]
+    df %>% unnest(cols = -{{nn2}}) %>% mutate(policyId = ID)
+  })
 }
