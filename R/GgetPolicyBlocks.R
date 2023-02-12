@@ -20,14 +20,15 @@ GgetPolicyBlocks <- function(accessToken = NULL,
   dfConfig <- GgetPolicyConfig(accessToken = AT, un = un, pw = pw,
                                baseurl = baseurl, policyId = policyId)
 
-  tibble(
-    value = unname(unlist(dfConfig$children[[1]])),
-    name = unlist(dfConfig$children[[1]]) %>% names()
-    )  %>%
+  map_df(1:nrow(dfConfig), ~{
+    tibble(policyId = dfConfig$policyId[[.]],
+           value = unname(unlist(dfConfig$children[[.]])),
+           name = unlist(dfConfig$children[[.]]) %>% names()
+  )}) %>%
     mutate(label = gsub("([[:print:]]*)(\\.)([[:alnum:]]+$)",  "\\3", name),
            name.rest = gsub("([[:print:]]*)(\\.)([[:alnum:]]+$)",  "\\1", name)) %>%
-    select(name.rest, label, value) %>%
-    group_by(name.rest) %>%
+    select(policyId, name.rest, label, value) %>%
+    group_by(policyId, name.rest) %>%
     nest() %>%
     mutate(hasSchema = map_lgl(data, ~"schema" %in% unlist(.[1]))) %>%
     filter(hasSchema) %>%
@@ -36,5 +37,5 @@ GgetPolicyBlocks <- function(accessToken = NULL,
     unnest(cols = c(data)) %>%
     ungroup() %>%
     select(-name.rest) %>%
-    select(tag, everything())
+    select(policyId, tag, everything())
 }
