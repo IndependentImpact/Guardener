@@ -9,7 +9,7 @@
 #' @param pageSize Integer. default 10
 #' @param returndf Logical. Returns a tibble if TRUE. Else a list (default)
 #'
-#' @return
+#' @return tibble or list
 #' @export
 
 GgetPolicies <- function(accessToken = NULL,

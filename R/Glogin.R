@@ -7,8 +7,7 @@
 #'
 #' @return list with "username", "did", "role" and "accessToken"
 #' @export
-#'
-#' @examples
+
 Glogin <- function(un = Sys.getenv("guardianUn"),
                    pw = Sys.getenv("guardianPW"),
                    baseurl = "http://localhost:3000/"){

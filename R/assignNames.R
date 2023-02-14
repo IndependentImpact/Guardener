@@ -3,10 +3,9 @@
 #'
 #' @param x list
 #' @author Alex Howard
-#' @return
+#' @return list
 #' @export
-#'
-#' @examples
+
 assignNames <- function(x) {
 
   if ("children" %in% names(x)) {

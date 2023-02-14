@@ -3,8 +3,7 @@
 #'
 #' @param data a dataframe with a column with fieldnames
 #' @param fieldnames Character. names of columns to be created
-#'
-#' @return
+#' @return data.frame
 #' @export
 
 names2tibble <- function(data, fieldnames = "fieldnames"){

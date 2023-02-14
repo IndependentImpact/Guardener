@@ -31,6 +31,9 @@ GgetSchemas(
 
 \item{topicId}{Character}
 }
+\value{
+tibble or list
+}
 \description{
 Get schemas based on a topicID
 }

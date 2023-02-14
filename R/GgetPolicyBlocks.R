@@ -9,8 +9,7 @@
 #' @param policyId Character. Typically from the $id item of the result of GgetPolicies()
 #' @return tibble
 #' @export
-#'
-#' @examples
+
 GgetPolicyBlocks <- function(accessToken = NULL,
                              un = NULL,
                              pw = NULL,

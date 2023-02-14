@@ -5,8 +5,7 @@
 #' @param schemas list
 #' @return tibble
 #' @export
-#'
-#' @examples
+
 Gschema2tibble <- function(schemas){
   dfSchemas <- map_df(schemas, Glist2tibble) %>% unnest(everything())
   dfSchemas$document <- map(dfSchemas$document, Gdocument2tibble)

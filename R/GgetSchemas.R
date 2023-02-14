@@ -11,10 +11,8 @@
 #' @import dplyr
 #' @import purrr
 #' @import httr
-#' @return
-#' @export
-#'
-#' @examples
+#' @return tibble or list
+
 GgetSchemas <- function(accessToken = NULL, baseurl = "http://localhost:3000/",
                         un = NULL,
                         pw = NULL,

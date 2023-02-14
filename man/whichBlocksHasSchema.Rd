@@ -23,6 +23,9 @@ in dfBlocks. Default function(x){gsub("#", "", x)} . If NULL no cleaing is perfo
 
 \item{schemaname}{Character. Variable in dfBlocks in which to look for schemaId}
 }
+\value{
+tibble
+}
 \description{
 Check in a collection of blocks which blocks are associated with a particular schema
 }

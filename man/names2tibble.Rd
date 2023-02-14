@@ -11,6 +11,9 @@ names2tibble(data, fieldnames = "fieldnames")
 
 \item{fieldnames}{Character. names of columns to be created}
 }
+\value{
+data.frame
+}
 \description{
 names2tibble
 }

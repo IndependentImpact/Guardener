@@ -2,8 +2,7 @@
 #' GmakeSchemaTemplate
 #' @description Make a nested tibble by schema. The data fields and their types are in the nested column
 #' @param dfSchemas tibble. Output of Gschema2tibble()
-#'
-#' @return
+#' @return tibble
 #' @export
 
 GmakeSchemaTemplate <- function(dfSchemas){

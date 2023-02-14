@@ -8,8 +8,7 @@
 #' @param policyId character. Schema to submit to
 #' @param BlockId character. Schema to submit to
 #' @param baseurl Character. URL where /api/ is hosted. Default "http://localhost:3000/"
-#'
-#' @return
+#' @return NULL
 #' @export
 
 Gpost2block <- function(accessToken = NULL,

@@ -33,10 +33,9 @@ AT <- ATL$accessToken # only the accestoken
 
 If the role is Standards Regsitry (or installer?), the use can request a policy list (of tibble when returndf = TRUE )
 
-```{r }
+```{r}
 dfPolicies <- GgetPolicies(AT, returndf = TRUE)
 ```
-
 
 # Get an individual policy
 

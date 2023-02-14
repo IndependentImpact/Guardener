@@ -4,12 +4,12 @@
 #' @param flatfirst logical
 #' @return tibble
 #' @export
-#' @example map_df(a, ~Glist2tibble(.))
 
 Glist2tibble <- function(L, flatfirst = FALSE){
   if (flatfirst){
-    Lnames <- L %>% flatten()  %>% names()
-    Lf <- flatten(L)
+    df <- map_df(L, ~{
+    Lnames <- flatten(.)  %>% names()
+    Lf <- flatten(.)
     Lf[map_lgl(Lf, ~is.null(.))] <- NA_character_
     Lf[map_lgl(Lf, ~length(.)==0)]  <- NA_character_
     names(Lf) <- Lnames
@@ -17,20 +17,25 @@ Glist2tibble <- function(L, flatfirst = FALSE){
       tibble() %>%
       pivot_longer(everything()) %>%
       mutate(name = Lnames) %>%
-      pivot_wider(names_from = name, values_fn = list)
+      #unnest(value) %>%
+      pivot_wider(names_from = name, values_fn = NULL)
     nn <- names(df)[map_lgl(df, ~length(.[[1]]) > 1)]
+    df %>% unnest(cols = -{{nn}})
+    })
+
   } else {
-    Lnames <- L  %>% names()
-    L[map_lgl(L, ~is.null(.))] <- NA_character_
-    L[map_lgl(L, ~length(.)==0)]  <- NA_character_
-    names(L) <- Lnames
-    df <- L %>%
-      tibble() %>%
+    df <- map_df(L, ~{
+    Lnames <- names(.)
+    .[map_lgl(., ~is.null(.))] <- NA_character_
+    .[map_lgl(., ~length(.)==0)]  <- NA_character_
+    names(.) <- Lnames
+    df <- tibble(.) %>%
       pivot_longer(everything()) %>%
       mutate(name = Lnames) %>%
-      pivot_wider(names_from = name, values_fn = list)
+      pivot_wider(names_from = name, values_fn = NULL)
     nn <- names(df)[map_lgl(df, ~length(.[[1]]) > 1)]
+    df %>% unnest(cols = -{{nn}})
+    })
   }
-  #message(paste(nn, " "))
-  df %>% unnest(cols = -{{nn}})
+  df
 }

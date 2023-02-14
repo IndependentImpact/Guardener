@@ -6,10 +6,9 @@
 #' @param baseurl Character. Base url. defaults to "http://localhost:3000/"
 #' @param policyId Character. Typically from the $id item of the result of GgetPolicies()
 #' @param returndf Return a tibble or not Default FALSE.
-#' @return
+#' @return tibble or list
 #' @export
-#'
-#' @examples
+
 GgetPolicy <- function(accessToken = NULL,
                        un = NULL,
                        pw = NULL,

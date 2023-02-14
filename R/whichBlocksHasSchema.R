@@ -7,7 +7,7 @@
 #' @param washfunction function or NULL. Function to clean the variable containing the schemaId (specified by schemaname)
 #' in dfBlocks. Default function(x){gsub("#", "", x)} . If NULL no cleaing is performed
 #' @param schemaname Character. Variable in dfBlocks in which to look for schemaId
-#' @return
+#' @return tibble
 #' @export
 #'
 #' @examples b <- whichBlocksHasSchema(GgetPolicyBlocks(AT, policyId = policyid),  "a399cc58-9a79-4277-b5ef-1c6461843a58")

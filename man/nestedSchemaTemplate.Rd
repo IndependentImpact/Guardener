@@ -11,6 +11,9 @@ nestedSchemaTemplate(dfSchemas = NULL, id = NULL, uuid = "uuid")
 
 \item{id}{character. id field in dfSchema of schema for which you want to make the template}
 }
+\value{
+tibble
+}
 \description{
 Make a template for a schema with sub-schema field nested in list-columns
 }
