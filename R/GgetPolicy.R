@@ -1,15 +1,15 @@
 #' GgetPolicy
 #'
-#'@param accessToken Character. Access token returned by Glogin()  $accessToken
+#' @param accessToken Character. Access token returned by Glogin()  $accessToken
 #' @param un Character. Username
 #' @param pw Character. Password
 #' @param baseurl Character. Base url. defaults to "http://localhost:3000/"
 #' @param policyId Character. Typically from the $id item of the result of GgetPolicies()
 #' @param returndf Return a tibble or not Default FALSE.
 #' @return
+#' @examples
 #' @export
 #'
-#' @examples
 GgetPolicy <- function(accessToken = NULL,
                        un = NULL,
                        pw = NULL,

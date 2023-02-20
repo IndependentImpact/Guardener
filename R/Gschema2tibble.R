@@ -4,9 +4,10 @@
 #' @description take the list comming out of GgetSchemas and make a tibble with 1 schema detail per row
 #' @param schemas list
 #' @return tibble
+#' @examples
 #' @export
 #'
-#' @examples
+#'
 Gschema2tibble <- function(schemas){
   dfSchemas <- map_df(schemas, Glist2tibble) %>% unnest(everything())
   dfSchemas$document <- map(dfSchemas$document, Gdocument2tibble)

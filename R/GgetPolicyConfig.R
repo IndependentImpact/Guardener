@@ -1,3 +1,9 @@
+#' GgetPolicyConfig
+#' 
+#' @param un Character.
+#' @param pw Character.
+#' @export
+#'
 GgetPolicyConfig <- function(accessToken = NULL,
                              un = NULL,
                              pw = NULL,
@@ -5,7 +11,11 @@ GgetPolicyConfig <- function(accessToken = NULL,
                              policyId = NULL,
                              returndf = FALSE,
                              ...){
-  policy <- GgetPolicy(accessToken = AT, un = un, pw = pw, baseurl = baseurl, policyId = policyId)
+  policy <- GgetPolicy(accessToken = AT, 
+                       un = un, 
+                       pw = pw, 
+                       baseurl = baseurl, 
+                       policyId = policyId)
   df <- Glist2tibble(policy$config, flatfirst = F)
   nn <- names(df)[map_lgl(df, ~length(.[[1]]) > 1)]
   df <- df %>% unnest(cols = -{{nn}})

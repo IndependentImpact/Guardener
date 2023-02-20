@@ -6,9 +6,9 @@
 #' @param baseurl Character. Base url. defaults to "http://localhost:3000/"
 #'
 #' @return list with "username", "did", "role" and "accessToken"
+#' @examples
 #' @export
 #'
-#' @examples
 Glogin <- function(un = Sys.getenv("guardianUn"),
                    pw = Sys.getenv("guardianPW"),
                    baseurl = "http://localhost:3000/"){

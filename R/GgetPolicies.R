@@ -11,7 +11,7 @@
 #'
 #' @return
 #' @export
-
+#'
 GgetPolicies <- function(accessToken = NULL,
                          un = NULL,
                          pw = NULL,
