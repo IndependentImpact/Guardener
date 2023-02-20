@@ -20,7 +20,7 @@ Glist2tibble <- function(L, flatfirst = FALSE){
       Lnames <- L  %>% names()
       L[map_lgl(L, ~is.null(.))] <- NA_character_
       L[map_lgl(L, ~length(.)==0)]  <- NA_character_
-      names(Lf) <- Lnames
+      names(L) <- Lnames
       df <- L %>%
         tibble() %>%
         pivot_longer(everything()) %>%
