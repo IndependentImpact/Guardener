@@ -20,5 +20,3 @@ GmakeBody <- function(document = NULL, schemaID = NULL, schemaIPFSurl = NULL){
         )
 }
 
-un
-
