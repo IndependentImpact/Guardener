@@ -1,3 +1,4 @@
+
 #' GmakeBody
 #'
 #' @param document Named list or data frame with data to submit. Names must correspond to field names in Schema
@@ -19,4 +20,5 @@ GmakeBody <- function(document = NULL, schemaID = NULL, schemaIPFSurl = NULL){
           '@context' = schemaIPFSurl)
         )
 }
+
 

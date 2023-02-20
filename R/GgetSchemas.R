@@ -1,6 +1,6 @@
 
 #' GgetSchemas
-#' 
+#'
 #' @description Get schemas based on a topicID
 #' @param accessToken  Character. Access token returned by Glogin()  $accessToken
 #' @param baseurl Character. Base url. defaults to "http://localhost:3000/"
@@ -14,7 +14,7 @@
 #' @examples
 #' @export
 #'
-GgetSchemas <- function(accessToken = NULL, 
+GgetSchemas <- function(accessToken = NULL,
                         baseurl = "http://localhost:3000/",
                         pageIndex = 0,
                         pageSize = 10,
@@ -52,3 +52,4 @@ GgetSchemas <- function(accessToken = NULL,
 
   res
 }
+

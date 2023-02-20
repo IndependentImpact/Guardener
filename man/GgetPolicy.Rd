@@ -26,6 +26,9 @@ GgetPolicy(
 
 \item{returndf}{Return a tibble or not Default FALSE.}
 }
+\value{
+tibble or list
+}
 \description{
 GgetPolicy
 }

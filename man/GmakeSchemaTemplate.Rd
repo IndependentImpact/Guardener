@@ -9,6 +9,9 @@ GmakeSchemaTemplate(dfSchemas)
 \arguments{
 \item{dfSchemas}{tibble. Output of Gschema2tibble()}
 }
+\value{
+tibble
+}
 \description{
 Make a nested tibble by schema. The data fields and their types are in the nested column
 }

@@ -29,6 +29,9 @@ GgetPolicies(
 
 \item{returndf}{Logical. Returns a tibble if TRUE. Else a list (default)}
 }
+\value{
+tibble or list
+}
 \description{
 Get the policies associated with an user identified by an access token or username and passwork
 }

@@ -1,5 +1,4 @@
 
-
 #' GgetPolicyBlocks
 #'
 #' @param accessToken Character. Access token returned by Glogin()  $accessToken
@@ -38,3 +37,4 @@ GgetPolicyBlocks <- function(accessToken = NULL,
     select(-name.rest) %>%
     select(tag, everything())
 }
+

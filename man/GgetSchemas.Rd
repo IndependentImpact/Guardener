@@ -12,6 +12,7 @@ GgetSchemas(
   pageIndex = 0,
   pageSize = 10,
   topicId = NULL,
+  schemaId = NULL,
   returndf = FALSE
 )
 }
@@ -29,6 +30,9 @@ GgetSchemas(
 \item{pageSize}{Integer. default 10}
 
 \item{topicId}{Character}
+}
+\value{
+tibble or list
 }
 \description{
 Get schemas based on a topicID

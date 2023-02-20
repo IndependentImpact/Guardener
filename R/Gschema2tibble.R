@@ -24,3 +24,4 @@ Gschema2tibble <- function(schemas){
 #  dfpars <- map_df(dfSchemas$document, ~pluck(., "properties", 1, 4))
 
 
+

@@ -4,7 +4,11 @@
 \alias{Glogin}
 \title{Glogin}
 \usage{
-Glogin(un, pw, baseurl = "http://localhost:3000/")
+Glogin(
+  un = Sys.getenv("guardianUn"),
+  pw = Sys.getenv("guardianPW"),
+  baseurl = "http://localhost:3000/"
+)
 }
 \arguments{
 \item{un}{Character. Username}

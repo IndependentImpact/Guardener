@@ -33,15 +33,15 @@ AT <- ATL$accessToken # only the accestoken
 
 If the role is Standards Regsitry (or installer?), the use can request a policy list (of tibble when returndf = TRUE )
 
-```{r }
+```{r}
 dfPolicies <- GgetPolicies(AT, returndf = TRUE)
 ```
-
 
 # Get an individual policy
 
 ```{r}
 policyid <- dfPolicies$id[[4]]
+policyids <- dfPolicies$id
 policy <- GgetPolicy(AT, policyId = policyid, returndf = TRUE)
 ```
 Information about the block are inside the $config column
@@ -59,14 +59,15 @@ dfConfig <- GgetPolicyConfig(accessToken = AT,  policyId = policyid) %>%
 Do all of the above in one step
 
 ```{r}
-blocks <- GgetPolicyBlocks(AT, policyId = policyid)
+dfBlocks <- GgetPolicyBlocks(AT, policyId = policyids)
 ```
 
 Relevant blocks for action are typically of type "requestVcDocumentBlock"
 
 ```{r}
-blocks %>% filter(blockType == "requestVcDocumentBlock")
+dfBlocks %>% filter(blockType == "requestVcDocumentBlock")
 ```
+
 # Get schemas associated with block
 
 ```{r}
@@ -89,5 +90,13 @@ Populate the Monitoring Report (MR)  tempate and submit.
 dfM <- dfTemplates %>% filter(name == "Monitoring Report (MR)") %>% unnest(templ)
 ```
 
+Get the policies and blocks using a particular schema
+
+```{r}
+schemaId <- dfSchemas[56, "uuid"] %>% pull()
+blockInfo <- whichBlocksHasSchema(dfBlocks = dfBlocks, schemaId = schemaId)
+blockID <- blockInfo$id
+blockPolicy <- blockInfo$policyId
+```
 
 

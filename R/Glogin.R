@@ -17,4 +17,3 @@ Glogin <- function(un = Sys.getenv("guardianUn"),
   httr::content(xLogin)
 }
 
-

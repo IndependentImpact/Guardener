@@ -1,3 +1,4 @@
+
 #' GgetPolicy
 #'
 #' @param accessToken Character. Access token returned by Glogin()  $accessToken
@@ -34,3 +35,4 @@ GgetPolicy <- function(accessToken = NULL,
   }
   res
 }
+
