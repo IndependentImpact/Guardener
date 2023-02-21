@@ -3,6 +3,7 @@
 #' @param L list
 #' @param flatfirst logical
 #' @return tibble
+#' @importFrom dplyr %>%
 #' @export
 
 Glist2tibble <- function(L, flatfirst = FALSE){
@@ -10,8 +11,8 @@ Glist2tibble <- function(L, flatfirst = FALSE){
     df <- map_df(L, ~{
     Lnames <- flatten(.)  %>% names()
     Lf <- flatten(.)
-    Lf[map_lgl(Lf, ~is.null(.))] <- NA_character_
-    Lf[map_lgl(Lf, ~length(.)==0)]  <- NA_character_
+    if (any(map_lgl(Lf, ~is.null(.))))   Lf[map_lgl(Lf, ~is.null(.))] <- NA_character_
+    if (any(map_lgl(Lf, ~length(.)==0))) Lf[map_lgl(Lf, ~length(.)==0)]  <- NA_character_
     names(Lf) <- Lnames
     df <- Lf %>%
       tibble() %>%
@@ -26,8 +27,8 @@ Glist2tibble <- function(L, flatfirst = FALSE){
   } else {
     df <- map_df(L, ~{
     Lnames <- names(.)
-    .[map_lgl(., ~is.null(.))] <- NA_character_
-    .[map_lgl(., ~length(.)==0)]  <- NA_character_
+    if (any(map_lgl(., ~is.null(.)))) .[map_lgl(., ~is.null(.))] <- NA_character_
+    if (any(map_lgl(., ~length(.)==0))) .[map_lgl(., ~length(.)==0)]  <- NA_character_
     names(.) <- Lnames
     df <- tibble(.) %>%
       pivot_longer(everything()) %>%
