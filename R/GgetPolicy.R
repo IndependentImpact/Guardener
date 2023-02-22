@@ -27,8 +27,7 @@ GgetPolicy <- function(accessToken = NULL,
   res <-  httr::content(raw)
   res$config <- assignNames(res$config)
   if (returndf){
-    df <- Glist2tibble(res, flatfirst = FALSE)
-    df <- df %>% unnest(cols = which(map_int(df , ~length(.[[1]])) == 1) %>% names())
+    df <- Glist2tibble(res)
     return(df)
   }
   res

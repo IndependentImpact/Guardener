@@ -18,7 +18,8 @@ GgetPolicies <- function(accessToken = NULL,
                          baseurl = "http://localhost:3000/",
                          pageIndex = 0,
                          pageSize = 10,
-                         returndf = FALSE){
+                         returndf = FALSE,
+                         verbose = FALSE){
 
   if (is.null(accessToken)){
     if (is.null(un) | is.null(pw)) {
@@ -31,10 +32,8 @@ GgetPolicies <- function(accessToken = NULL,
                   httr::add_headers(Authorization = sprintf("Bearer %s", accessToken)))
   res <- httr::content(policies)
 
-  #res[[1]]$id
   if (returndf) {
-    df <- Glist2tibble(res, flatfirst = TRUE)
-    df <- df %>%  unnest(cols = which(map_int(df , ~length(.[[1]])) == 1) %>% names())
+    df <- Glist2tibble(res, verbose = verbose)
     return(df)
   }
 
