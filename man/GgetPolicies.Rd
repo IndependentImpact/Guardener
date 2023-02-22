@@ -11,7 +11,8 @@ GgetPolicies(
   baseurl = "http://localhost:3000/",
   pageIndex = 0,
   pageSize = 10,
-  returndf = FALSE
+  returndf = FALSE,
+  verbose = FALSE
 )
 }
 \arguments{
