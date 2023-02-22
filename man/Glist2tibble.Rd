@@ -4,12 +4,10 @@
 \alias{Glist2tibble}
 \title{Glist2tibble}
 \usage{
-Glist2tibble(L, flatfirst = FALSE)
+Glist2tibble(L, verbose = FALSE)
 }
 \arguments{
 \item{L}{list}
-
-\item{flatfirst}{logical}
 }
 \value{
 tibble
