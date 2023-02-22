@@ -5,16 +5,17 @@
 #' @param schemas list
 #' @return tibble
 #' @export
+#' @example Gschema2tibble(GgetSchemas(AT)) %>% select(`_id`, name, description, system, active, fields, fieldnames) %>% group_by(name) %>% nest()
 
 Gschema2tibble <- function(schemas){
-  dfSchemas <- map_df(schemas, Glist2tibble) %>% unnest(everything())
+  dfSchemas <- map_df(schemas, ~Glist2tibble(.,  flatfirst =  FALSE)) %>% unnest(document)
   dfSchemas$document <- map(dfSchemas$document, Gdocument2tibble)
   dfSchemas$context <- map(dfSchemas$context, ~flatten(Gdocument2tibble(.)))
   dfSchemas$context <- map(dfSchemas$context, flatten)
   dfSchemas$fields <- map2(dfSchemas$context, dfSchemas$uuid, ~..1[[..2]][["@context"]])
   dfSchemas$version  <- map(dfSchemas$context,  ~..1[["@version"]])
   dfSchemas$fieldnames <- map(dfSchemas$fields, ~names(.))
-  dfSchemas$fieldtypes <- map(dfSchemas$fields, ~names(.))
+  #dfSchemas$fieldtypes <- map(dfSchemas$fields, ~names(.))
   dfSchemas %>% unnest(c("fields", "fieldnames")) %>% unnest(fields) %>% unnest(fields)
 }
 
