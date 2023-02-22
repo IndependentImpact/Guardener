@@ -10,7 +10,8 @@ vignette: >
 ---
 
 ```{r setup, include = FALSE}
-knitr::opts_chunk$set(message = FALSE, echo = FALSE, warning = FALSE, collapse = TRUE,
+knitr::opts_chunk$set(
+  collapse = TRUE,
   comment = "#>"
 )
 library(Guardener)
@@ -19,14 +20,16 @@ library(tidyverse)
 
 # Get access token
 
-You need to have a username and password. For the defaults, Uuse usethis::edit_r_environ() to edit the R environment. These value are be retrieved with Sys.getenv("guardianUn") and Sys.getenv("guardianPW")
+You need to have a username and password. For the defaults, Uuse usethis::edit_r_environ() to edit the R environment. These value are be retrived with Sys.getenv("guardianUn") and Sys.getenv("guardianPW")
 
 ```{r}
-ATL <- Glogin(un = "StandardRegistry", pw =  "test")
+ATL <- Glogin(un = Sys.getenv("guardianUn"), pw = Sys.getenv("guardianPW"))
+ATL <- Glogin(un = "StandardRegistry", pw = "test")
 ATL$role
 ATL$did
 ATL$username
 AT <- ATL$accessToken # only the accestoken
+AT2 <- "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik5vdmEgSW5zdGl0dXRlIiwiZGlkIjoiZGlkOmhlZGVyYTp0ZXN0bmV0OkVEdVdrNHpBNE1UVzdWV1pnNjZldTk3blB6R2ZBcVp6VlJDNGRzZVUxdnFuXzAuMC4zNTA1MDgzIiwicm9sZSI6IlNUQU5EQVJEX1JFR0lTVFJZIiwiaWF0IjoxNjc2OTkxMjAwfQ.32uBc40QbWhTa4ITejdBR4ZdHj6Kr82QX9hvwDaIyTw"
 ```
 
 # Get list of policies 
@@ -35,68 +38,49 @@ If the role is Standards Regsitry (or installer?), the use can request a policy 
 
 ```{r}
 dfPolicies <- GgetPolicies(AT, returndf = TRUE)
+
+#dfPoliciesDrop <- Guardener::GgetPolicies(AT2, baseurl = "165.232.86.237:3000")
 ```
+
 
 # Get an individual policy
 
 ```{r}
-policyid <- dfPolicies$id[[4]]
-policyids <- dfPolicies$id
-policy <- GgetPolicy(AT, policyId = policyid, returndf = TRUE)
+policy <- GgetPolicy(AT, policyId = dfPolicies$id[[1]], returndf = TRUE)
 ```
 Information about the block are inside the $config column
 
 Inspect the config:
 
 ```{r}
-dfConfig <- GgetPolicyConfig(accessToken = AT,  policyId = policyid) %>% 
+dfConfig <- GgetPolicyConfig(accessToken = AT,  policyId = dfPolicies$id[[1]]) %>% 
   unnest(cols = c(children)) %>% 
    unnest(cols = c(children))
 ```
+
 
 # Get blocks from policy
 
 Do all of the above in one step
 
 ```{r}
-dfBlocks <- GgetPolicyBlocks(AT, policyId = policyids)
+blocks <- GgetPolicyBlocks(AT, policyId = dfPolicies$id)
 ```
 
 Relevant blocks for action are typically of type "requestVcDocumentBlock"
 
 ```{r}
-dfBlocks %>% filter(blockType == "requestVcDocumentBlock")
+blocks %>% filter(blockType == "requestVcDocumentBlock")
 ```
-
 # Get schemas associated with block
 
 ```{r}
+blocks[1, c(3,8)]
 #Schema_requestVcDocumentBlock <- GgetSchemas(AT, schemaId = unlist(blocks[1, c(8)]), returndf = TRUE)
 dfSchemas <- GgetSchemas(AT,  returndf = TRUE) # "/schema/{schemaId}" gives a 500 so get everything and filter
-```
-
-
-```{r}
-dfTemplates <- dfSchemas %>% 
-  GmakeSchemaTemplate() %>% 
-  mutate(templ = map(data, ~names2tibble(.) )) %>% 
-  ungroup() %>% 
-  select(-data)
-```
-
-Populate the Monitoring Report (MR)  tempate and submit.
-
-```{r}
-dfM <- dfTemplates %>% filter(name == "Monitoring Report (MR)") %>% unnest(templ)
-```
-
-Get the policies and blocks using a particular schema
-
-```{r}
-schemaId <- dfSchemas[56, "uuid"] %>% pull()
-blockInfo <- whichBlocksHasSchema(dfBlocks = dfBlocks, schemaId = schemaId)
-blockID <- blockInfo$id
-blockPolicy <- blockInfo$policyId
+dfMSchemas <- dfSchemas %>% 
+  filter(name == "Monitoring Report (MR)") %>% 
+  GmakeSchemaTemplate()
 ```
 
 
