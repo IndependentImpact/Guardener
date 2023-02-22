@@ -12,6 +12,7 @@
 #' @import purrr
 #' @import httr
 #' @return tibble or list
+#' @export
 
 GgetSchemas <- function(accessToken = NULL, baseurl = "http://localhost:3000/",
                         un = NULL,
@@ -45,7 +46,6 @@ GgetSchemas <- function(accessToken = NULL, baseurl = "http://localhost:3000/",
   names(res) <- sapply(X = res, FUN = function(x) x$iri)
 
   if (returndf){
-
     df <- Gschema2tibble(res)
     return(df)
   }
