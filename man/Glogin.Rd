@@ -7,7 +7,8 @@
 Glogin(
   un = Sys.getenv("guardianUn"),
   pw = Sys.getenv("guardianPW"),
-  baseurl = "http://localhost:3000/"
+  baseurl = "http://localhost:3000/",
+  returnraw = FALSE
 )
 }
 \arguments{
@@ -16,6 +17,8 @@ Glogin(
 \item{pw}{Character. Password}
 
 \item{baseurl}{Character. Base url. defaults to "http://localhost:3000/"}
+
+\item{returnraw}{logical. Return the complete result before extraxting the content}
 }
 \value{
 list with "username", "did", "role" and "accessToken"
