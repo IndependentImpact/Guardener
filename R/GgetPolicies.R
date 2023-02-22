@@ -1,4 +1,3 @@
-
 #' GgetPolicies
 #' @description Get the policies associated with an user identified by an access token or username and passwork
 #' @param accessToken Character. Access token returned by Glogin()  $accessToken

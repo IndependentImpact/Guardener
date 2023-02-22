@@ -1,4 +1,3 @@
-
 #' GgetSchemas
 #' @description Get schemas based on a topicID
 #' @param accessToken  Character. Access token returned by Glogin()  $accessToken

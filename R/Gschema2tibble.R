@@ -1,5 +1,3 @@
-
-
 #' Gschema2tibble
 #' @description take the list comming out of GgetSchemas and make a tibble with 1 schema detail per row
 #' @param schemas list
@@ -21,5 +19,3 @@ Gschema2tibble <- function(schemas){
 
 # Gschema2tibble(GgetSchemas(AT)) %>% select(`_id`, name, description, system, active, fields, fieldnames) %>% group_by(name) %>% nest()
 #  dfpars <- map_df(dfSchemas$document, ~pluck(., "properties", 1, 4))
-
-

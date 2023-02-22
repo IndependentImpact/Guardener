@@ -1,5 +1,3 @@
-
-
 #' GgetPolicyBlocks
 #'
 #' @param accessToken Character. Access token returned by Glogin()  $accessToken

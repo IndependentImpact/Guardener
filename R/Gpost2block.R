@@ -1,5 +1,5 @@
 
-#' Gpost2Schema
+#' Gpost2block
 #'
 #' @param accessToken character. Access token. typically from 'accessToken' field in result of Glogin()
 #' @param document Named list or data frame with data to submit. Names must correspond to field names in Schema
