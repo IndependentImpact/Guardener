@@ -16,8 +16,12 @@ GgetPolicyBlocks <- function(accessToken = NULL,
                              baseurl = "http://localhost:3000/",
                              policyId = NULL,
                              returndf = FALSE){
-  dfConfig <- GgetPolicyConfig(accessToken = AT, un = un, pw = pw,
-                               baseurl = baseurl, policyId = policyId)
+
+  dfConfig <- GgetPolicyConfig(accessToken = accessToken,
+                               un = un,
+                               pw = pw,
+                               baseurl = baseurl,
+                               policyId = policyId)
 
   map_df(1:nrow(dfConfig), ~{
     tibble(policyId = dfConfig$policyId[[.]],
