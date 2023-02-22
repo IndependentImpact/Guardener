@@ -8,7 +8,7 @@
 #' @example Gschema2tibble(GgetSchemas(AT)) %>% select(`_id`, name, description, system, active, fields, fieldnames) %>% group_by(name) %>% nest()
 
 Gschema2tibble <- function(schemas){
-  dfSchemas <- map_df(schemas, ~Glist2tibble(.,  flatfirst =  FALSE)) %>% unnest(document)
+  dfSchemas <- map_df(schemas, ~Glist2tibble(.))
   dfSchemas$document <- map(dfSchemas$document, Gdocument2tibble)
   dfSchemas$context <- map(dfSchemas$context, ~flatten(Gdocument2tibble(.)))
   dfSchemas$context <- map(dfSchemas$context, flatten)
@@ -16,7 +16,7 @@ Gschema2tibble <- function(schemas){
   dfSchemas$version  <- map(dfSchemas$context,  ~..1[["@version"]])
   dfSchemas$fieldnames <- map(dfSchemas$fields, ~names(.))
   #dfSchemas$fieldtypes <- map(dfSchemas$fields, ~names(.))
-  dfSchemas %>% unnest(c("fields", "fieldnames")) %>% unnest(fields) %>% unnest(fields)
+  dfSchemas %>% unnest(c("fields", "fieldnames")) %>% unnest(cols = ones(.))
 }
 
 # Gschema2tibble(GgetSchemas(AT)) %>% select(`_id`, name, description, system, active, fields, fieldnames) %>% group_by(name) %>% nest()

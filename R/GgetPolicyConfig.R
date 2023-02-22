@@ -23,7 +23,7 @@ GgetPolicyConfig <- function(accessToken = NULL,
     if (verbose) message(.)
     ID = .
     policy <- GgetPolicy(accessToken = AT, un = un, pw = pw, baseurl = baseurl, policyId = .)
-    df <- Glist2tibble(policy$config, flatfirst = F)
+    df <- Glist2tibble(policy$config)
     nn <- names(df)[map_lgl(df, ~length(.[[1]]) > 1)]
     df <- df %>% unnest(cols = -{{nn}})
     nn2 <- names(df)[map_lgl(df, ~length(.[[1]]) > 1)]
