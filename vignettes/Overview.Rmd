@@ -29,7 +29,9 @@ ATL$role
 ATL$did
 ATL$username
 AT <- ATL$accessToken # only the accestoken
-AT2 <- "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik5vdmEgSW5zdGl0dXRlIiwiZGlkIjoiZGlkOmhlZGVyYTp0ZXN0bmV0OkVEdVdrNHpBNE1UVzdWV1pnNjZldTk3blB6R2ZBcVp6VlJDNGRzZVUxdnFuXzAuMC4zNTA1MDgzIiwicm9sZSI6IlNUQU5EQVJEX1JFR0lTVFJZIiwiaWF0IjoxNjc2OTkxMjAwfQ.32uBc40QbWhTa4ITejdBR4ZdHj6Kr82QX9hvwDaIyTw"
+AT2 <- Glogin(un = "Nova Institute", pw = "nova1994inst", baseurl = "http://datadudes.xyz:3000")
+AT2 <- AT2$accessToken
+dropbase <- "http://datadudes.xyz:3000/"
 ```
 
 # Get list of policies 
@@ -38,6 +40,7 @@ If the role is Standards Regsitry (or installer?), the use can request a policy 
 
 ```{r}
 dfPolicies <- GgetPolicies(AT, returndf = TRUE)
+dfPolicies2 <- GgetPolicies(AT, baseurl = dropbase, returndf = TRUE)
 
 #dfPoliciesDrop <- Guardener::GgetPolicies(AT2, baseurl = "165.232.86.237:3000")
 ```
