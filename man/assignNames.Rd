@@ -9,9 +9,6 @@ assignNames(x)
 \arguments{
 \item{x}{list}
 }
-\value{
-list
-}
 \description{
 assignNames
 }

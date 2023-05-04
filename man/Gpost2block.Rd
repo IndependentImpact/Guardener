@@ -2,7 +2,7 @@
 % Please edit documentation in R/Gpost2block.R
 \name{Gpost2block}
 \alias{Gpost2block}
-\title{Gpost2Schema}
+\title{Gpost2block}
 \usage{
 Gpost2block(
   accessToken = NULL,
@@ -30,5 +30,5 @@ Gpost2block(
 \item{baseurl}{Character. URL where /api/ is hosted. Default "http://localhost:3000/"}
 }
 \description{
-Gpost2Schema
+Gpost2block
 }

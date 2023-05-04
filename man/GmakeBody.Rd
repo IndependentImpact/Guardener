@@ -13,9 +13,6 @@ GmakeBody(document = NULL, schemaID = NULL, schemaIPFSurl = NULL)
 
 \item{schemaIPFSurl}{Character}
 }
-\value{
-list
-}
 \description{
 GmakeBody
 }

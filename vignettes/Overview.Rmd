@@ -23,12 +23,12 @@ library(tidyverse)
 You need to have a username and password. For the defaults, Uuse usethis::edit_r_environ() to edit the R environment. These value are be retrived with Sys.getenv("guardianUn") and Sys.getenv("guardianPW")
 
 ```{r}
-ATL <- Glogin(un = Sys.getenv("guardianUn"), pw = Sys.getenv("guardianPW"))
-ATL <- Glogin(un = "StandardRegistry", pw = "test")
-ATL$role
-ATL$did
-ATL$username
-AT <- ATL$accessToken # only the accestoken
+#ATL <- Glogin(un = Sys.getenv("guardianUn"), pw = Sys.getenv("guardianPW"))
+#ATL <- Glogin(un = "StandardRegistry", pw = "test")
+#ATL$role
+#ATL$did
+#ATL$username
+#AT <- ATL$accessToken # only the accestoken
 AT2 <- Glogin(un = "Nova Institute", pw = "nova1994inst", baseurl = "http://datadudes.xyz:3000")
 AT2 <- AT2$accessToken
 dropbase <- "http://datadudes.xyz:3000/"
@@ -67,7 +67,7 @@ dfConfig <- GgetPolicyConfig(accessToken = AT,  policyId = dfPolicies$id[[1]]) %
 Do all of the above in one step
 
 ```{r}
-blocks <- GgetPolicyBlocks(AT, policyId = dfPolicies$id)
+blocks <- GgetPolicyBlocks(accessToken = AT, policyId = dfPolicies$id)
 ```
 
 Relevant blocks for action are typically of type "requestVcDocumentBlock"
