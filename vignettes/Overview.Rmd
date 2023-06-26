@@ -21,18 +21,18 @@ library(tidyverse)
 
 # Get access token
 
-You need to have a username and password. For the defaults, Uuse usethis::edit_r_environ() to edit the R environment. These value are be retrived with Sys.getenv("shinyGuardianUN") and Sys.getenv("shinyGuardianPW")
+You need to have a username and password. For the defaults, Uuse usethis::edit_r_environ() to edit the R environment. These value are be retrived with Sys.getenv("guardianUN2") and Sys.getenv("guardianPW2")
 
 ```{r}
-#ATL <- Glogin(un = Sys.getenv("shinyGuardianUN"), pw = Sys.getenv("shinyGuardianPW"))
+#ATL <- Glogin(un = Sys.getenv("guardianUN2"), pw = Sys.getenv("guardianPW2"))
 #ATL <- Glogin(un = "StandardRegistry", pw = "test")
 #ATL$role
 #ATL$did
 #ATL$username
 #AT <- ATL$accessToken # only the accestoken
 dropbase <- gsub(":3838/HGICP-ShinyUI/", ":3000/", Sys.getenv("shinyGaurdianURL"))
-AT <- Glogin(un = Sys.getenv("shinyGuardianUN"), 
-              pw = Sys.getenv("shinyGuardianPW"), 
+AT <- Glogin(un = Sys.getenv("guardianUN2"), 
+              pw = Sys.getenv("guardianPW2"), 
               baseurl = dropbase)
 AT <- AT$accessToken
 
@@ -46,9 +46,7 @@ If the role is Standards Regsitry (or installer?), the use can request a policy 
 dfPolicies <- GgetPolicies(AT, 
                            returndf = TRUE, 
                            baseurl = dropbase)
-dfPolicies2 <- GgetPolicies(AT, 
-                            baseurl = dropbase, 
-                            returndf = TRUE)
+
 
 #dfPoliciesDrop <- Guardener::GgetPolicies(AT2, baseurl = "165.232.86.237:3000")
 ```
