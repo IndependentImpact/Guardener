@@ -21,7 +21,7 @@ library(tidyverse)
 
 # Get access token
 
-You need to have a username and password. For the defaults, Uuse usethis::edit_r_environ() to edit the R environment. These value are be retrived with Sys.getenv("guardianUN2") and Sys.getenv("guardianPW2")
+You need to have a username and password. For the defaults, Use usethis::edit_r_environ() to edit the R environment. These value are be retrieved with Sys.getenv("shinyGuardianUN") and Sys.getenv("shinyGuardianPW")
 
 ```{r}
 #ATL <- Glogin(un = Sys.getenv("guardianUN2"), pw = Sys.getenv("guardianPW2"))
@@ -31,8 +31,9 @@ You need to have a username and password. For the defaults, Uuse usethis::edit_r
 #ATL$username
 #AT <- ATL$accessToken # only the accestoken
 dropbase <- gsub(":3838/HGICP-ShinyUI/", ":3000/", Sys.getenv("shinyGaurdianURL"))
-AT <- Glogin(un = Sys.getenv("guardianUN2"), 
-              pw = Sys.getenv("guardianPW2"), 
+
+AT <- Glogin(un = Sys.getenv("shinyGuardianUN"), 
+              pw = Sys.getenv("shinyGuardianPW"), 
               baseurl = dropbase)
 AT <- AT$accessToken
 
@@ -40,7 +41,7 @@ AT <- AT$accessToken
 
 # Get list of policies 
 
-If the role is Standards Regsitry (or installer?), the use can request a policy list (of tibble when returndf = TRUE )
+If the role is Standards Registry (or installer?), the use can request a policy list (of tibble when returndf = TRUE )
 
 ```{r}
 dfPolicies <- GgetPolicies(AT, 
