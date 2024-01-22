@@ -3,7 +3,7 @@
 #' @param schemas list
 #' @return tibble
 #' @export
-#' @example Gschema2tibble(GgetSchemas(AT)) %>% select(`_id`, name, description, system, active, fields, fieldnames) %>% group_by(name) %>% nest()
+#' @example Gschema2tibble(GgetSchemas(AT)) %>% select(`_id`, name, description, system, active, fields, fieldnames) %>% group_by(name) %>% tidyr::nest()
 
 Gschema2tibble <- function(schemas){
   dfSchemas <- map_df(schemas, ~Glist2tibble(.))
@@ -14,8 +14,8 @@ Gschema2tibble <- function(schemas){
   dfSchemas$version  <- map(dfSchemas$context,  ~..1[["@version"]])
   dfSchemas$fieldnames <- map(dfSchemas$fields, ~names(.))
   #dfSchemas$fieldtypes <- map(dfSchemas$fields, ~names(.))
-  dfSchemas %>% unnest(c("fields", "fieldnames")) %>% unnest(cols = ones(.))
+  dfSchemas %>% tidyr::unnest(c("fields", "fieldnames")) %>% tidyr::unnest(cols = ones(.))
 }
 
-# Gschema2tibble(GgetSchemas(AT)) %>% select(`_id`, name, description, system, active, fields, fieldnames) %>% group_by(name) %>% nest()
+# Gschema2tibble(GgetSchemas(AT)) %>% select(`_id`, name, description, system, active, fields, fieldnames) %>% group_by(name) %>% tidyr::nest()
 #  dfpars <- map_df(dfSchemas$document, ~pluck(., "properties", 1, 4))

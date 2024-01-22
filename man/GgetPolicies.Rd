@@ -5,9 +5,7 @@
 \title{GgetPolicies}
 \usage{
 GgetPolicies(
-  accessToken = NULL,
-  un = NULL,
-  pw = NULL,
+  refreshToken,
   baseurl = "http://localhost:3000/",
   pageIndex = 0,
   pageSize = 10,
@@ -16,11 +14,7 @@ GgetPolicies(
 )
 }
 \arguments{
-\item{accessToken}{Character. Access token returned by Glogin()  $accessToken}
-
-\item{un}{Character. Username}
-
-\item{pw}{Character. Password}
+\item{refreshToken}{Character. JWT refresh token returned by Glogin()$refreshToken.}
 
 \item{baseurl}{Character. Base url. defaults to "http://localhost:3000/"}
 

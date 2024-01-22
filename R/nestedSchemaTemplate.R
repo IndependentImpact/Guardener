@@ -20,8 +20,8 @@ nestedSchemaTemplate <- function(dfSchemas = NULL, id = NULL, uuid = "uuid"){
   schemafields <- fields[!types %in% "https://www.schema.org/text"]
 
   df1 <- tibble(k = NA_character_, fields = c(uuid, setdiff(fields, schemafields)))  %>%
-    pivot_wider( names_from = fields, values_from = k) %>%
-    unnest(everything())
+    tidyr::pivot_wider( names_from = fields, values_from = k) %>%
+    tidyr::unnest(everything())
   df1$uuid <- uuid
   df1
 

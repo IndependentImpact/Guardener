@@ -5,9 +5,7 @@
 \title{Title}
 \usage{
 GgetPolicyConfig(
-  accessToken = NULL,
-  un = NULL,
-  pw = NULL,
+  refreshToken = NULL,
   baseurl = "http://localhost:3000/",
   policyId = NULL,
   returndf = FALSE,
@@ -16,11 +14,7 @@ GgetPolicyConfig(
 )
 }
 \arguments{
-\item{accessToken}{Character. Access token returned by Glogin()  $accessToken}
-
-\item{un}{Character. Username}
-
-\item{pw}{haracter. Password}
+\item{refreshToken}{Character. JWT refresh token returned by Glogin()$refreshToken.}
 
 \item{baseurl}{Character. Base url. defaults to "http://localhost:3000/"}
 

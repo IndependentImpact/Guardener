@@ -5,10 +5,8 @@
 \title{GgetSchemas}
 \usage{
 GgetSchemas(
-  accessToken = NULL,
+  refreshToken,
   baseurl = "http://localhost:3000/",
-  un = NULL,
-  pw = NULL,
   pageIndex = 0,
   pageSize = 10,
   topicId = NULL,
@@ -17,13 +15,9 @@ GgetSchemas(
 )
 }
 \arguments{
-\item{accessToken}{Character. Access token returned by Glogin()  $accessToken}
+\item{refreshToken}{Character. JWT refresh token returned by Glogin()$refreshToken.}
 
 \item{baseurl}{Character. Base url. defaults to "http://localhost:3000/"}
-
-\item{un}{Character. Username}
-
-\item{pw}{haracter. Password}
 
 \item{pageIndex}{Integer. default 0}
 

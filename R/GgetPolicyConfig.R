@@ -1,9 +1,7 @@
 
 #' Title
 #'
-#' @param accessToken Character. Access token returned by Glogin()  $accessToken
-#' @param un Character. Username
-#' @param pw haracter. Password
+#' @param refreshToken Character. JWT refresh token returned by Glogin()$refreshToken.
 #' @param baseurl Character. Base url. defaults to "http://localhost:3000/"
 #' @param policyId haracter. Typically from the $id item of the result of GgetPolicies()
 #' @param returndf Return a tibble or not Default FALSE.
@@ -12,22 +10,30 @@
 #' @return
 #' @export
 
-GgetPolicyConfig <- function(accessToken = NULL,
-                             un = NULL,
-                             pw = NULL,
+GgetPolicyConfig <- function(refreshToken = NULL,
                              baseurl = "http://localhost:3000/",
                              policyId = NULL,
                              returndf = FALSE,
                              verbose = FALSE,
                              ...){
-  res <- map_df(policyId, ~{
+
+  # Get access token for this query.
+  accessToken <- GgetAccessToken(refreshToken = refreshToken,
+                                 baseurl = baseurl)
+
+  # Make the query for each policyId.
+  res <- purrr::map_df(policyId, ~{
     if (verbose) message(.)
     ID = .
-    policy <- GgetPolicy(accessToken = accessToken, un = un, pw = pw, baseurl = baseurl, policyId = .)
+    policy <- GgetPolicy(refreshToken = refreshToken,
+                         baseurl = baseurl,
+                         policyId = .)
     df <- Glist2tibble(policy$config)
-    nn <- names(df)[map_lgl(df, ~length(.[[1]]) > 1)]
-    df <- df %>% unnest(cols = -{{nn}})
-    nn2 <- names(df)[map_lgl(df, ~length(.[[1]]) > 1)]
-    df %>% unnest(cols = -{{nn2}}) %>% mutate(policyId = ID)
+    nn <- names(df)[purrr::map_lgl(df, ~length(.[[1]]) > 1)]
+    df <- df %>% tidyr::unnest(cols = -{{nn}})
+    nn2 <- names(df)[purrr::map_lgl(df, ~length(.[[1]]) > 1)]
+    df %>% tidyr::unnest(cols = -{{nn2}}) %>% mutate(policyId = ID)
   })
+
+  return(res)
 }

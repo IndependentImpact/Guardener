@@ -11,4 +11,4 @@ LazyData: true
 Import:
   dplyr
 VignetteBuilder: knitr
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.0

@@ -16,5 +16,5 @@ character vector with names of df that contain nested items of length 1
 ones
 }
 \examples{
-df \%>\% unnest(cols = ones(.))
+df \%>\% tidyr::unnest(cols = ones(.))
 }

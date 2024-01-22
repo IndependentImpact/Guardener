@@ -9,8 +9,8 @@ extractTopic <- function(policy){
 #' @return character vector with names of df that contain nested items of length 1
 #' @export
 #'
-#' @examples df %>% unnest(cols = ones(.))
+#' @examples df %>% tidyr::unnest(cols = ones(.))
 
 ones <- function(df){
-  names(df)[map_lgl(df, ~all(map_int(., length) == 1))]
+  names(df)[purrr::map_lgl(df, ~all(purrr::map_int(., length) == 1))]
 }

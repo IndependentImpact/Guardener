@@ -5,20 +5,14 @@
 \title{GgetPolicyBlocks}
 \usage{
 GgetPolicyBlocks(
-  accessToken = NULL,
-  un = NULL,
-  pw = NULL,
+  refreshToken = NULL,
   baseurl = "http://localhost:3000/",
   policyId = NULL,
   returndf = FALSE
 )
 }
 \arguments{
-\item{accessToken}{Character. Access token returned by Glogin()  $accessToken}
-
-\item{un}{Character. Username}
-
-\item{pw}{Character. Password}
+\item{refreshToken}{Character. JWT refresh token returned by Glogin()$refreshToken.}
 
 \item{baseurl}{Character. Base url. defaults to "http://localhost:3000/"}
 
