@@ -8,7 +8,8 @@ GgetPolicyBlocks(
   refreshToken = NULL,
   baseurl = "http://localhost:3000/",
   policyId = NULL,
-  returndf = FALSE
+  returndf = FALSE,
+  schemaBlocksOnly = TRUE
 )
 }
 \arguments{
@@ -17,6 +18,8 @@ GgetPolicyBlocks(
 \item{baseurl}{Character. Base url. defaults to "http://localhost:3000/"}
 
 \item{policyId}{Character. Typically from the $id item of the result of GgetPolicies()}
+
+\item{schemaBlocksOnly}{Logical. If TRUE, only return blocks that have a schema.}
 }
 \value{
 tibble
