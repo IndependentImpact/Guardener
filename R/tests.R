@@ -9,6 +9,11 @@
 #   refreshToken = resLogin$refreshToken,
 #   baseurl = baseUrl)
 #
+# dfUserProf <- GgetUserProfile(
+#   refreshToken = resLogin$refreshToken,
+#   username = "StandardRegistry",
+#   baseurl = baseUrl)
+#
 # dfPolicies <- GgetPolicies(
 #   refreshToken = resLogin$refreshToken,
 #   baseurl = baseUrl,
