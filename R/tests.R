@@ -47,3 +47,7 @@
 # dfTokens <- GgetTokens(
 #   refreshToken = resLogin$refreshToken,
 #   baseurl = baseUrl)
+#
+# dfTokenPols <- GgetTokenPolicyIds(
+#   refreshToken = resLogin$refreshToken,
+#   baseurl = baseUrl)
