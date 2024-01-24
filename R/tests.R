@@ -1,9 +1,13 @@
-
+#
 # baseUrl <- "http://localhost:3000/"
 #
 # resLogin <- Glogin(un = "StandardRegistry",
 #                    pw = "test",
 #                    baseurl = baseUrl)
+#
+# dfStandardsRs <- GgetStandardsRegistries(
+#   refreshToken = resLogin$refreshToken,
+#   baseurl = baseUrl)
 #
 # dfPolicies <- GgetPolicies(
 #   refreshToken = resLogin$refreshToken,
