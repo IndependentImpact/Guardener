@@ -43,3 +43,7 @@
 #   baseurl = baseUrl,
 #   topicId = dfPolicies$topicId[1],
 #   returndf = TRUE)
+#
+# dfTokens <- GgetTokens(
+#   refreshToken = resLogin$refreshToken,
+#   baseurl = baseUrl)
