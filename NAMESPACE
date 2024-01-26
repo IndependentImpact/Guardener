@@ -3,6 +3,7 @@
 export(Gdocument2tibble)
 export(GgetAccessToken)
 export(GgetAccounts)
+export(GgetBlockDocuments)
 export(GgetPolicies)
 export(GgetPolicy)
 export(GgetPolicyBlocks)
