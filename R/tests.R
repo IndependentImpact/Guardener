@@ -1,3 +1,4 @@
+# library(Guardener)
 #
 # baseUrl <- "http://localhost:3000/"
 #
@@ -6,6 +7,10 @@
 #                    baseurl = baseUrl)
 #
 # dfStandardsRs <- GgetStandardsRegistries(
+#   refreshToken = resLogin$refreshToken,
+#   baseurl = baseUrl)
+#
+# dfUsers <- GgetAccounts(
 #   refreshToken = resLogin$refreshToken,
 #   baseurl = baseUrl)
 #
