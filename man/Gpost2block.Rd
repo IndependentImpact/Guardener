@@ -5,27 +5,23 @@
 \title{Gpost2block}
 \usage{
 Gpost2block(
+  x,
   refreshToken,
-  document,
-  schemaID,
-  schemaIPFSurl,
   policyId,
-  BlockId,
+  blockId,
   baseurl = "http://localhost:3000/"
 )
 }
 \arguments{
+\item{x}{List. Data to submit to the policy block. If x is a document based
+on a schema, the document should already contain appropriately populated
+'context' and 'type' fields.}
+
 \item{refreshToken}{Character. JWT refresh token returned by Glogin()$refreshToken.}
-
-\item{document}{Named list or data frame with data to submit. Names must correspond to field names in Schema.}
-
-\item{schemaID}{character. Schema to submit to.}
-
-\item{schemaIPFSurl}{character. Schema to submit to.}
 
 \item{policyId}{character. Schema to submit to.}
 
-\item{BlockId}{character. Schema to submit to.}
+\item{blockId}{character. Schema to submit to.}
 
 \item{baseurl}{Character. URL where /api/ is hosted. Default "http://localhost:3000/".}
 }
