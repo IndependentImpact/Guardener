@@ -56,3 +56,9 @@
 # dfTokenPols <- GgetTokenPolicyIds(
 #   refreshToken = resLogin$refreshToken,
 #   baseurl = baseUrl)
+#
+# dfUserTknInfo <- GgetUserTokenInfo(
+#   refreshToken = resLogin$refreshToken,
+#   tokenId = "0.0.7717332",
+#   usernm = "Installer",
+#   baseurl = baseUrl)

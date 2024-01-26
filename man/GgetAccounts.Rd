@@ -4,7 +4,7 @@
 \alias{GgetAccounts}
 \title{GgetAccounts}
 \usage{
-GgetAccounts(refreshToken, baseurl = "http://localhost:3000")
+GgetAccounts(refreshToken, baseurl = "http://localhost:3000/")
 }
 \arguments{
 \item{refreshToken}{Character. JWT refresh token returned by Glogin()$refreshToken.}

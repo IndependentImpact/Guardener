@@ -10,7 +10,7 @@
 #'@export
 #'
 GgetAccounts <- function(refreshToken,
-                         baseurl = "http://localhost:3000") {
+                         baseurl = "http://localhost:3000/") {
 
   rbind.fill <- plyr::rbind.fill
 
