@@ -15,7 +15,7 @@ GmakeSchemaTemplate <- function(dfSchemas){
            inschema = case_when(schemafield ~ fields, TRUE ~ uuid)
            ) %>%
     group_by(name, uuid, inschema, schemafield) %>%
-    nest()
+    tidyr::nest()
 
   if (!any(z$schemafield)) return(z)
 
@@ -27,12 +27,12 @@ GmakeSchemaTemplate <- function(dfSchemas){
   # z <- z %>%
   #   ungroup() %>%
   #   select(-schemafield, -inschema) %>%
-  #   unnest(cols = c(data)) %>%
+  #   tidyr::unnest(cols = c(data)) %>%
   #   select(-inschema)
 }
 
 getSchemaInside <- function(z, id){
-  z %>% unnest(data) %>% ungroup() %>%
+  z %>% tidyr::unnest(data) %>% ungroup() %>%
     filter(uuid == id) %>%
     select(uuid, fields, fieldnames) %>%
     set_names("inschema", "fields", "fieldnames")
@@ -45,13 +45,13 @@ IdAndReplaceSchema <- function(z){
     z <- z %>%
       ungroup() %>%
       select(-inschema, -schemafield) %>%
-      unnest(cols = c(data)) %>%
+      tidyr::unnest(cols = c(data)) %>%
       mutate(fields = gsub("#", "", fields),
                 schemafield = fields %in% .$uuid,
                 inschema = case_when(schemafield ~ fields, TRUE ~ uuid)
                 ) %>%
       group_by(name, uuid, inschema, schemafield) %>%
-      nest()
+      tidyr::nest()
 
   }
 

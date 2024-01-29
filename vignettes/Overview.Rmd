@@ -29,13 +29,13 @@ You need to have a username and password. For the defaults, Use usethis::edit_r_
 #ATL$role
 #ATL$did
 #ATL$username
-#AT <- ATL$accessToken # only the accestoken
-dropbase <- gsub(":3838/HGICP-ShinyUI/", ":3000/", Sys.getenv("shinyGaurdianURL"))
+#RT <- ATL$refreshToken # only the accestoken
+dropbase <- gsub(":3838/HGICP-ShinyUI/", ":3000/", Sys.getenv("shinyGuardianURL"))
 
-AT <- Glogin(un = Sys.getenv("shinyGuardianUN"), 
+RT <- Glogin(un = Sys.getenv("shinyGuardianUN"), 
               pw = Sys.getenv("shinyGuardianPW"), 
               baseurl = dropbase)
-AT <- AT$accessToken
+RT <- RT$refreshToken
 
 ```
 
@@ -44,7 +44,7 @@ AT <- AT$accessToken
 If the role is Standards Registry (or installer?), the use can request a policy list (of tibble when returndf = TRUE )
 
 ```{r}
-dfPolicies <- GgetPolicies(AT, 
+dfPolicies <- GgetPolicies(RT, 
                            returndf = TRUE, 
                            baseurl = dropbase)
 
@@ -56,7 +56,7 @@ dfPolicies <- GgetPolicies(AT,
 # Get an individual policy
 
 ```{r}
-policy <- GgetPolicy(AT, 
+policy <- GgetPolicy(RT, 
                      policyId = dfPolicies$id[[1]], 
                      baseurl = dropbase, 
                      returndf = TRUE)
@@ -66,7 +66,7 @@ Information about the block are inside the $config column
 Inspect the config:
 
 ```{r}
-dfConfig <- GgetPolicyConfig(accessToken = AT,  
+dfConfig <- GgetPolicyConfig(refreshToken = RT,  
                              policyId = dfPolicies$id[[1]], 
                              baseurl = dropbase, ) %>% 
   unnest(cols = c(children)) %>% 
@@ -79,7 +79,7 @@ dfConfig <- GgetPolicyConfig(accessToken = AT,
 Do all of the above in one step
 
 ```{r}
-blocks <- GgetPolicyBlocks(accessToken = AT, 
+blocks <- GgetPolicyBlocks(refreshToken = RT, 
                            policyId = dfPolicies$id,
                            baseurl = dropbase, )
 ```
@@ -93,8 +93,8 @@ blocks %>% filter(blockType == "requestVcDocumentBlock")
 
 ```{r}
 blocks[1, c(3,8)]
-#Schema_requestVcDocumentBlock <- GgetSchemas(AT, schemaId = unlist(blocks[1, c(8)]), returndf = TRUE)
-dfSchemas <- GgetSchemas(AT, baseurl = dropbase,  returndf = TRUE) # "/schema/{schemaId}" gives a 500 so get everything and filter
+#Schema_requestVcDocumentBlock <- GgetSchemas(RT, schemaId = unlist(blocks[1, c(8)]), returndf = TRUE)
+dfSchemas <- GgetSchemas(RT, baseurl = dropbase,  returndf = TRUE) # "/schema/{schemaId}" gives a 500 so get everything and filter
 dfMSchemas <- dfSchemas %>% 
   filter(name == "Monitoring Report (MR)") %>% 
   GmakeSchemaTemplate()

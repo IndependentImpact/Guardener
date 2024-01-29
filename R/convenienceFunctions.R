@@ -1,3 +1,4 @@
+
 #' extractTopic
 #' Convenience function to extract topicId from policy
 #' @param policy
@@ -21,5 +22,6 @@ extractTopic <- function(policy){
 #' @examples df %>% unnest(cols = ones(.))
 
 ones <- function(df){
-  names(df)[map_lgl(df, ~all(map_int(., length) == 1))]
+  names(df)[purrr::map_lgl(df, ~all(purrr::map_int(., length) == 1))]
 }
+

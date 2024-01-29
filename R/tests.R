@@ -1,0 +1,64 @@
+# library(Guardener)
+#
+# baseUrl <- "http://localhost:3000/"
+#
+# resLogin <- Glogin(un = "StandardRegistry",
+#                    pw = "test",
+#                    baseurl = baseUrl)
+#
+# dfStandardsRs <- GgetStandardsRegistries(
+#   refreshToken = resLogin$refreshToken,
+#   baseurl = baseUrl)
+#
+# dfUsers <- GgetAccounts(
+#   refreshToken = resLogin$refreshToken,
+#   baseurl = baseUrl)
+#
+# dfUserProf <- GgetUserProfile(
+#   refreshToken = resLogin$refreshToken,
+#   username = "StandardRegistry",
+#   baseurl = baseUrl)
+#
+# dfPolicies <- GgetPolicies(
+#   refreshToken = resLogin$refreshToken,
+#   baseurl = baseUrl,
+#   returndf = TRUE)
+#
+# dfPolicy <- GgetPolicy(
+#   refreshToken = resLogin$refreshToken,
+#   baseurl = baseUrl,
+#   returndf = TRUE,
+#   policyId = dfPolicies$id[1])
+#
+# dfBlocks <- GgetPolicyBlocks(
+#   refreshToken = resLogin$refreshToken,
+#   baseurl = baseUrl,
+#   policyId = dfPolicies$id[1],
+#   returndf = TRUE)
+#
+# dfConfig <- GgetPolicyConfig(
+#   refreshToken = resLogin$refreshToken,
+#   baseurl = baseUrl,
+#   policyId = dfPolicies$id[1],
+#   returndf = TRUE,
+#   verbose = FALSE)
+#
+# dfSchemas <- GgetSchemas(
+#   refreshToken = resLogin$refreshToken,
+#   baseurl = baseUrl,
+#   topicId = dfPolicies$topicId[1],
+#   returndf = TRUE)
+#
+# dfTokens <- GgetTokens(
+#   refreshToken = resLogin$refreshToken,
+#   baseurl = baseUrl)
+#
+# dfTokenPols <- GgetTokenPolicyIds(
+#   refreshToken = resLogin$refreshToken,
+#   baseurl = baseUrl)
+#
+# dfUserTknInfo <- GgetUserTokenInfo(
+#   refreshToken = resLogin$refreshToken,
+#   tokenId = "0.0.7717332",
+#   usernm = "Installer",
+#   baseurl = baseUrl)
