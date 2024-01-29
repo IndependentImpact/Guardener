@@ -26,7 +26,7 @@ on a schema, the document should already contain appropriately populated
 \item{baseurl}{Character. URL where /api/ is hosted. Default "http://localhost:3000/".}
 }
 \value{
-NULL. #TODO. This is not accurate. It does return stuff.
+List. Some metadata about the submission.
 }
 \description{
 Gpost2block

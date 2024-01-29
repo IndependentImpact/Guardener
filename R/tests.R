@@ -49,6 +49,12 @@
 #   topicId = dfPolicies$topicId[1],
 #   returndf = TRUE)
 #
+# dfSchema <- GgetSchema(
+#   refreshToken = resLogin$refreshToken,
+#   baseurl = baseUrl,
+#   schemaId = "65b0d3952b3252fcc5b23a85",
+#   returndf = TRUE)
+#
 # dfTokens <- GgetTokens(
 #   refreshToken = resLogin$refreshToken,
 #   baseurl = baseUrl)

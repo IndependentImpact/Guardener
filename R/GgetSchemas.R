@@ -19,17 +19,21 @@ GgetSchemas <- function(refreshToken,
                         schemaId = NULL,
                         returndf = FALSE){
 
+  # Pass on to GgetSchema() if the user actually just wants a specific schema.
+  if (!is.null(schemaId)){
+    return(GgetSchema(refreshToken = refreshToken,
+                      baseurl = baseurl,
+                      schemaId = schemaId,
+                      returndf = returndf))
+  }
+
   # Build url.
-  if (!is.null(topicId)){
+  if (!is.null(topicId)) {
     message("Using TopicId ", topicId)
     url = sprintf("%sapi/v1/schemas/%s", baseurl, topicId)
   } else {
-    if (!is.null(schemaId)){
-      message("Using schemaId ", gsub("#","", schemaId))
-      url = sprintf("%sapi/v1/schema/%s", baseurl, gsub("#","", schemaId))
-    } else {
-      message("No schemaId or TopicId. Getting everything")
-      url = sprintf("%sapi/v1/schemas", baseurl)}
+    message("No schemaId or TopicId. Getting everything")
+    url = sprintf("%sapi/v1/schemas", baseurl)
   }
 
   # Get access token for this query.
@@ -45,6 +49,9 @@ GgetSchemas <- function(refreshToken,
   if (res$status_code != 200) {
     stop(sprintf("Error: Query returned status code %s.", res$status_code))
   }
+
+  # TODO. Remove after debugging.
+  save(res, file = "C:/Users/ALIIIX/Documents/Nova/PROJECTS/AARTUM/Hedera/Guardener/res.Rda")
 
   res <- httr::content(res)
 
