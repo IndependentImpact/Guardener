@@ -37,7 +37,7 @@ GgetTokenPolicyIds <- function(refreshToken,
       }
       return(data.frame(
         id_token = x$id,
-        id_policy = x$policyIds[[1]]))
+        id_policy = unlist(x$policyIds)))
     })
 
     res <- do.call("rbind.fill", res)
