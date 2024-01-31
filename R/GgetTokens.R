@@ -41,7 +41,9 @@ GgetTokens <- function(refreshToken,
 
     res <- do.call("rbind.fill", res)
 
-    res$wipeContractId[which(nchar(res$wipeContractId) == 0)] <- NA_character_
+    if ("wipeContractId" %in% names(res)) {
+      res$wipeContractId[which(nchar(res$wipeContractId) == 0)] <- NA_character_
+    }
   }
 
   return(res)
