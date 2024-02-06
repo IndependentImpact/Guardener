@@ -2,7 +2,8 @@
 % Please edit documentation in R/convenienceFunctions.R
 \name{ones}
 \alias{ones}
-\title{ones}
+\title{ones
+Convenience function to extract names of columns that contain nested items of length 1}
 \usage{
 ones(df)
 }
@@ -14,7 +15,8 @@ character vector with names of df that contain nested items of length 1
 }
 \description{
 ones
+Convenience function to extract names of columns that contain nested items of length 1
 }
 \examples{
-df \%>\% tidyr::unnest(cols = ones(.))
+df \%>\% unnest(cols = ones(.))
 }
