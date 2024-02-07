@@ -3,7 +3,9 @@
 #' @param schemas list
 #' @return tibble
 #' @export
-#' @example Gschema2tibble(GgetSchemas(AT)) %>% select(`_id`, name, description, system, active, fields, fieldnames) %>% group_by(name) %>% tidyr::nest()
+#' @example Gschema2tibble(GgetSchemas(AT)) %>%
+#' select(`_id`, name, description, system, active, fields, fieldnames) %>%
+#' group_by(name) %>% tidyr::nest()
 
 Gschema2tibble <- function(schemas){
   dfSchemas <- map_df(schemas, ~Glist2tibble(.))
