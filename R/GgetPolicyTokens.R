@@ -1,13 +1,15 @@
-#' GgetTokens
+#' GgetPolicyTokens
 #'
-#'@description Get a list of tokens accessible to the current user.
+#'@description Get a list of tokens in use in a specific policy.
+#'@param policyId Character. Policy ID to get token info for.
 #'@param refreshToken Character. JWT refresh token returned by Glogin()$refreshToken.
 #'@param baseurl Character. Base url. Defaults to "http://localhost:3000/".
 #'@return Data frame.
 #'@export
 
-GgetTokens <- function(refreshToken,
-                       baseurl = "http://localhost:3000/") {
+GgetPolicyTokens <- function(refreshToken,
+                             policyId,
+                             baseurl = "http://localhost:3000/") {
 
   rbind.fill <- plyr::rbind.fill
 
@@ -16,7 +18,8 @@ GgetTokens <- function(refreshToken,
                                  baseurl = baseurl)
 
   # Make the query.
-  res <- httr::GET(url = sprintf("%sapi/v1/tokens", baseurl),
+  res <- httr::GET(url = sprintf("%sapi/v1/tokens?policy=%s",
+                                 baseurl, policyId),
                    httr::add_headers(Authorization = sprintf("Bearer %s",
                                                              accessToken)))
   if (res$status_code != 200) {
