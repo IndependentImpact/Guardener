@@ -1,13 +1,12 @@
-#'GgetAccounts
-#'
-#'@description Returns all users on the targeted Guardian instance, except those
+#' @title GgetAccounts
+#' @description Returns all users on the targeted Guardian instance, except those
 #'   with roles Standard Registry and Auditor. Only users with the Standard
 #'   Registry role are allowed to make the request.
-#'@param refreshToken Character. JWT refresh token returned by Glogin()$refreshToken.
-#'@param baseurl Character. Base URL of the targeted Guardian instance. Defaults
+#' @param refreshToken Character. JWT refresh token returned by Glogin()$refreshToken.
+#' @param baseurl Character. Base URL of the targeted Guardian instance. Defaults
 #'   to "http://localhost:3000/".
-#'@return Data frame.
-#'@export
+#' @return Data frame.
+#' @export
 #'
 GgetAccounts <- function(refreshToken,
                          baseurl = "http://localhost:3000/") {
