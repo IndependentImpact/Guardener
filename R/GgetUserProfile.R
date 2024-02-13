@@ -2,13 +2,13 @@
 #'
 #'@description Get user profile.
 #'@param refreshToken Character. JWT refresh token returned by Glogin()$refreshToken.
-#'@param username Character. Username of the user for whom to retrieve the profile.
+#'@param un Character. Username of the user for whom to retrieve the profile.
 #'@param baseurl Character. Base url. Defaults to "http://localhost:3000/".
 #'@return Data frame.
 #'@export
 
 GgetUserProfile <- function(refreshToken,
-                            username,
+                            un,
                             baseurl = "http://localhost:3000/") {
 
   # Get access token for this query.
@@ -20,7 +20,7 @@ GgetUserProfile <- function(refreshToken,
                                  baseurl,
                                  gsub(pattern = "[[:blank:]]",
                                       replacement = "%20",
-                                      x = username)),
+                                      x = un)),
                    httr::add_headers(Authorization = sprintf("Bearer %s",
                                                              accessToken)))
   if (res$status_code != 200) {
