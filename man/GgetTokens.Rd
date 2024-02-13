@@ -9,7 +9,7 @@ GgetTokens(refreshToken, baseurl = "http://localhost:3000/")
 \arguments{
 \item{refreshToken}{Character. JWT refresh token returned by Glogin()$refreshToken.}
 
-\item{baseurl}{Character. Base url. Defaults to "http://localhost:3000/".}
+\item{baseurl}{Character. URL where /api/ is hosted. Default "http://localhost:3000/".}
 }
 \value{
 Data frame.

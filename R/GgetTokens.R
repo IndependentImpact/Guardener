@@ -1,10 +1,10 @@
 #' GgetTokens
 #'
-#'@description Get a list of tokens accessible to the current user.
-#'@param refreshToken Character. JWT refresh token returned by Glogin()$refreshToken.
-#'@param baseurl Character. Base url. Defaults to "http://localhost:3000/".
-#'@return Data frame.
-#'@export
+#' @description Get a list of tokens accessible to the current user.
+#' @param refreshToken Character. JWT refresh token returned by Glogin()$refreshToken.
+#' @param baseurl Character. URL where /api/ is hosted. Default "http://localhost:3000/".
+#' @return Data frame.
+#' @export
 
 GgetTokens <- function(refreshToken,
                        baseurl = "http://localhost:3000/") {

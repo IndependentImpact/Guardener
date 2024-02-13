@@ -9,7 +9,7 @@ GgetAccessToken(refreshToken, baseurl = "http://localhost:3000/")
 \arguments{
 \item{refreshToken}{Character. JWT refresh token returned by Glogin()$refreshToken.}
 
-\item{baseurl}{Character. Base url. defaults to "http://localhost:3000/"}
+\item{baseurl}{Character. URL where /api/ is hosted. Default "http://localhost:3000/".}
 }
 \value{
 Character. A JWT access token valid for 30 seconds.
