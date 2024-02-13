@@ -14,10 +14,10 @@
 #'  - role: The user's role (e.g., "STANDARD_REGISTRY or "USER")
 #' @export
 #'
-GregisterAccount <- function(baseurl,
-                             un,
+GregisterAccount <- function(un,
                              pw,
-                             role = "USER") {
+                             role = "USER",
+                             baseurl = "http://localhost:3000/") {
 
   # Make the query.
   res <- httr::POST(url = sprintf("%sapi/v1/accounts/register", baseurl),
