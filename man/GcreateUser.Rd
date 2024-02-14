@@ -37,6 +37,7 @@ A list with at least the following elements:
  - role: The user's role (e.g., "STANDARD_REGISTRY or "USER")
  - refreshToken: The user's JWT refresh token.
  - did: The user's DID.
+ - didDocMessageId: The message ID of the user's DID document.
 }
 \description{
 Convenience wrapper around the GregisterAccount, Glogin and
