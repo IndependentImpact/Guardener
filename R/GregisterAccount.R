@@ -25,10 +25,10 @@ GregisterAccount <- function(un,
                           password = pw,
                           password_confirmation = pw,
                           role = role))
-
   if (res$status_code != 201) {
-    stop(sprintf("Failed to create an account for user '%s' on Guardian instance at '%s'. Status code: %s",
-                 un, baseurl, res$status_code))
+    res <- httr::content(res, as = "parsed")
+    stop(sprintf("Failed to create an account for user '%s' on Guardian instance at '%s'. Status code: %s. Message: %s",
+                 un, baseurl, res$statusCode, res$message))
   }
 
   # Process the result.
