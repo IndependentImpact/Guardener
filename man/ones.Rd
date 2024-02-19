@@ -2,21 +2,13 @@
 % Please edit documentation in R/convenienceFunctions.R
 \name{ones}
 \alias{ones}
-\title{ones
-Convenience function to extract names of columns that contain nested items of length 1}
+\title{ones}
 \usage{
 ones(df)
 }
-\arguments{
-\item{df}{}
-}
 \value{
-character vector with names of df that contain nested items of length 1
+Character vector with names of df that contain nested items of length 1.
 }
 \description{
-ones
-Convenience function to extract names of columns that contain nested items of length 1
-}
-\examples{
-df \%>\% unnest(cols = ones(.))
+Convenience function to extract names of columns that contain nested items of length 1.
 }

@@ -68,3 +68,13 @@
 #   tokenId = "0.0.7717332",
 #   usernm = "Installer",
 #   baseurl = baseUrl)
+#
+# baseUrl <- basurl <- "http://167.99.35.174:3000/"
+# resLogin <- Glogin(
+#   un = "StandardRegistry",
+#   pw = "test",
+#   baseurl = baseUrl)
+# refreshToken <- resLogin$refreshToken
+# messageId <- "1707337505.219810903"
+# fp <- "C:/Users/ALIIIX/Documents/Nova/PROJECTS/AARTUM/Hedera/AlexNotes/AAP.policy"
+

@@ -17,7 +17,7 @@
 #'  - refreshToken: The user's JWT refresh token.
 #'  - did: The user's DID.
 #'  - didDocMessageId: The message ID of the user's DID document.
-#' @example
+#' @examples
 #'    res <- GcreateUser(
 #'      un = "abcdef@email.com",
 #'      pw = "abcdef12345#!#",

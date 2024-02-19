@@ -43,3 +43,13 @@ A list with at least the following elements:
 Convenience wrapper around the GregisterAccount, Glogin and
    GsetUpProfile functions which should almost always be called in succession.
 }
+\examples{
+   res <- GcreateUser(
+     un = "abcdef@email.com",
+     pw = "abcdef12345#!#",
+     role = "USER",
+     parentDid = "did:hedera:testnet:G53WPzkeuisRgsC3oooikWcGzkMT6ydAgQQNEAY5jiA2_0.0.2950818",
+     hederaAccountId = "0.0.3424007",
+     hederaAccountKey = "302e020100300506032b657004220420ecc6dd4fffe25f7a0cbc49e4ad11b0644f4cf1c8e3ef78013db365c525e72aa9",
+     baseurl = "http://167.99.35.174:3000/")
+}

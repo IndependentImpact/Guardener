@@ -10,7 +10,7 @@ assignNames(x)
 \item{x}{list}
 }
 \description{
-assignNames
+Recursively assigns names to the children of a list of lists.
 }
 \author{
 Alex Howard

@@ -8,7 +8,8 @@ GgetPolicy(
   refreshToken,
   baseurl = "http://localhost:3000/",
   policyId = NULL,
-  returndf = FALSE
+  returndf = FALSE,
+  assignNms = TRUE
 )
 }
 \arguments{

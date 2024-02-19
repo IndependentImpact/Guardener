@@ -8,7 +8,8 @@
 #' @param parentDid Character. The DID of the standard registry user to associate the user with.
 #' @param hederaAccountId Character. The Hedera account ID to be associated with the user.
 #' @param hederaAccountKey Character. The Hedera account key to be associated with the user.
-#' @param baseurl Character. URL where /api/ is hosted. Default "http://localhost:3000/".
+#' @param baseurl Character. Base URL of the targeted Guardian instance. Defaults
+#'   to "http://localhost:3000/".
 #' @export
 #'
 GsetUpProfile <- function(refreshToken,

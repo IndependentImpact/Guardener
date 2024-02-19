@@ -1,10 +1,8 @@
 
-#' assignNames
-#'
+#' @title assignNames
+#' @description Recursively assigns names to the children of a list of lists.
 #' @param x list
 #' @author Alex Howard
-#' @return
-#' @examples
 #' @export
 #'
 assignNames <- function(x) {

@@ -27,7 +27,8 @@ GsetUpProfile(
 
 \item{hederaAccountKey}{Character. The Hedera account key to be associated with the user.}
 
-\item{baseurl}{Character. URL where /api/ is hosted. Default "http://localhost:3000/".}
+\item{baseurl}{Character. Base URL of the targeted Guardian instance. Defaults
+to "http://localhost:3000/".}
 }
 \description{
 Associates a Guardian user with a Hedera account and a Guardian

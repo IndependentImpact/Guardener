@@ -5,17 +5,13 @@
 #' @param baseurl Character. Base url. defaults to "http://localhost:3000/"
 #' @param policyId haracter. Typically from the $id item of the result of GgetPolicies()
 #' @param returndf Return a tibble or not Default FALSE.
-#' @param ...
-#'
-#' @return
 #' @export
 
 GgetPolicyConfig <- function(refreshToken = NULL,
                              baseurl = "http://localhost:3000/",
                              policyId = NULL,
                              returndf = FALSE,
-                             verbose = FALSE,
-                             ...){
+                             verbose = FALSE){
 
   # Get access token for this query.
   accessToken <- GgetAccessToken(refreshToken = refreshToken,
