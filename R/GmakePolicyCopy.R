@@ -1,26 +1,80 @@
-
-
-resLogin <- Glogin(
-  un = "StandardRegistry",
-  pw = "test",
-  baseurl = "http://167.99.35.174:3000/")
-refreshToken <- resLogin$refreshToken
-messageId <- "1707337505.219810903"
-fp <- "C:/Users/ALIIIX/Documents/DraftsEnStuff/Improved Cookstove Policy (API-only) - v5.1.0.zip"
-
-
-
-
+#' @title GmakePolicyCopy
+#' @description Makes a copy of a Guardian policy and pushes it back to the
+#'    Guardian instance. Can optionally change the name of the copy and publish it.
+#' @param refreshToken Character. JWT refresh token returned by Glogin()$refreshToken.
+#' @param messageId Character. The message ID of the policy to be copied. If provided,
+#'    the function will ignore the 'fp' argument. If not provided, the function will
+#'    try to copy the policy from the ZIP file provided in the 'fp' argument.
+#' @param fp Character. The file path of the ZIP file of the policy to be copied.
+#'    Ignored if 'messageId' is provided.
+#' @param newName Character. Optional. The name to give the new copy of the policy.
+#' @param newVersionNo Character. Optional. The new version number of the policy. If
+#'  not provided and publish = TRUE, the function will try to determine the new
+#'  version number automatically. It is strongly recommended to provide the correct
+#'  version number yourself. This argument is ignored if publish = FALSE.
+#' @param publish Logical. Whether to publish the new policy. Defaults to TRUE.
+#' @param baseurl Character. Base URL of the targeted Guardian instance. Defaults
+#'   to "http://localhost:3000/".
+#' @return Character. The Guardian policy ID of the newly created copy.
+#' @export
+#'
 GmakePolicyCopy <- function(refreshToken,
-                            baseurl = "http://localhost:3000/",
                             messageId = NULL,
                             fp = NULL,
-                            publish = TRUE) {
+                            newName = NULL,
+                            newVersionNo = NULL,
+                            publish = TRUE,
+                            baseurl = "http://localhost:3000/") {
 
   # Input checking.
-  if (length(messageId) == 0 & length(fp) == 0) {
-    stop("Either 'messageId' or 'fp' must be provided.")
+  {
+    # messageId vs. fp
+    {
+      if (length(messageId) == 0 & length(fp) == 0) {
+        stop("Either 'messageId' or 'fp' must be provided.")
+      }
+      if (length(messageId) == 1 & length(fp) == 1) {
+        stop("Both 'messageId' and 'fp' provided; 'fp' will be ignored.")
+      }
+    }
+
+    # newName
+    {
+      if (length(newName) > 1) {
+        warning("length(newName) > 1. Only the first element will be used.")
+        newName <- newName[[1]]
+      }
+      if (length(newName) == 1) {
+        if (nchar(newName) == 0) {
+          newName <- NULL
+        }
+      }
+    }
+
+    # newVersionNo
+    {
+      if (length(newVersionNo) > 1) {
+        warning("length(newVersionNo) > 1. Only the first element will be used.")
+        newVersionNo <- newVersionNo[[1]]
+      }
+      if (length(newVersionNo) == 1) {
+
+        if (nchar(newVersionNo) == 0) {
+          newVersionNo <- NULL
+        } else {
+          if (length(grep(pattern = "^[[:digit:]]{1,}\\.[[:digit:]]{1,}.[[:digit:]]{1,}$",
+                          x = newVersionNo,
+                          fixed = FALSE)) != 1) {
+            stop("Invalid version number specified. Version number must be in the format of '1.2.3'.")
+          }
+        }
+      }
+    }
   }
+
+  # Initialise some variables.
+  policyId <- NULL
+  polConf <- NULL
 
   # Make the copy request.
   {
@@ -66,74 +120,113 @@ GmakePolicyCopy <- function(refreshToken,
     {
       taskId <- res$taskId
 
-      res <- Guardener::GgetTaskStatus(
-        refreshToken = refreshToken,
-        baseurl = baseurl,
-        taskId = taskId)
+      bDone <- FALSE
+      while (!bDone) {
 
-      # TODO.
+        # Get an update on the task status.
+        res <- Guardener::GgetTaskStatus(
+          refreshToken = refreshToken,
+          baseurl = baseurl,
+          taskId = taskId)
+
+        if ("error" %in% names(res)) {
+          if (length(res$error) > 0) {
+            if (length(res$error$code) > 0 || length(res$error$message) > 0) {
+              stop(sprintf("Failed to make policy copy: %s (%s)",
+                           res$error$message, res$error$code))
+            }
+          }
+        }
+
+        # Try to get the policyId of the new copy.
+        if ("result" %in% names(res)) {
+          if ("policyId" %in% names(res$result)) {
+            if (length(res$result$policyId) > 0) {
+              if (nchar(res$result$policyId) >= 24) {
+                policyId <- res$result$policyId
+                bDone <- TRUE
+              }
+          }
+        }
+      }
     }
-
-    # Get the policyId of the new copy.
-    policyId <- res$result$policyId
   }
 
+  }
 
+  # Try to change the policy's name, if the user provided a new name.
+  # (At this point the name will have an ugly tag behind it, e.g.,
+  # "ICP - Agent Application Subpolicy (API-only)_1708102794423")
+  if (length(newName) == 1) {
+
+    tryCatch({
+
+      # Get the policy's config.
+      polConf <- Guardener::GgetPolicy(
+        refreshToken = refreshToken,
+        baseurl = baseurl,
+        policyId = policyId,
+        assignNms = FALSE)
+
+      # Change the name.
+      polConf$name <- newName
+
+      # Get access token for next request.
+      accessToken <- GgetAccessToken(
+        refreshToken = refreshToken,
+        baseurl = baseurl)
+
+      # Push name change to Guardian instance.
+      res <- httr::PUT(
+        url = sprintf("%sapi/v1/policies/%s", baseurl, policyId),
+        httr::add_headers(
+          Authorization = sprintf("Bearer %s", accessToken)),
+        httr::content_type("application/json"),
+        encode = "raw",
+        body = jsonlite::toJSON(
+          x = polConf,
+          factor = "string",
+          complex = "string",
+          auto_unbox = TRUE, # The request fails when auto_unbox = FALSE.
+          pretty = FALSE,
+          force = FALSE))
+
+      # Process the result.
+      if (res$status_code != 200) {
+        stCode <- res$status_code
+        errMsg <- httr::content(res, as = "parsed")
+        stop(sprintf("Failed to change policy name: %s (%s)",
+                     errMsg, stCode))
+      }
+
+    }, error = function(e) {
+      warning(sprintf("Failed to change policy name: %s", e$message))
+    })
+  }
 
   # If the user does not want to publish the new policy, we're done, so just
   # return the policyId.
   if (!publish) {
-    return(res2$result$policyId)
+    return(policyId)
   }
 
+  # Determine the new version's number, if none were provided.
+  if (length(newVersionNo) == 0) {
+    if (length(newName) == 1) {
+      newVersionNo <- "1.0.0"
+    } else {
 
-
-
-  # Change the policy's name.
-  # (At this point the name will have an ugly tag behind it, e.g.,
-  # "ICP - Agent Application Subpolicy (API-only)_1708102794423")
-  {
-    # Get the policy's config.
-    polConf <- Guardener::GgetPolicy(
-      refreshToken = refreshToken,
-      baseurl = baseurl,
-      policyId = res2$result$policyId)
-
-    # Change the name.
-    polConf$name <- sub("_.*$", "", polConf$name)
-
-    # Get access token for next request.
-    accessToken <- GgetAccessToken(
-      refreshToken = refreshToken,
-      baseurl = baseurl)
-
-    # Push name change to Guardian instance.
-    res <- httr::PUT(
-      url = sprintf("%sapi/v1/policies/%s", baseurl, res2$result$policyId),
-      httr::add_headers(
-        Authorization = sprintf("Bearer %s", accessToken)),
-      httr::content_type("application/json"),
-      encode = "raw",
-      body = jsonlite::toJSON(
-        x = polConf,
-        #dataframe = , #matrix = , #Date = , #POSIXt = ,
-        factor = "string",
-        complex = "string",
-        #raw = , #null = , #na = ,
-        auto_unbox = TRUE, # The request fails when auto_unbox = FALSE.
-        #digits = ,
-        pretty = FALSE,
-        force = FALSE))
-
-    # Process the result.
-    if (res$status_code != 200) {
-      stCode <- res$status_code
-      errMsg <- httr::content(res, as = "parsed")
-      stop(sprintf("Failed to change policy name: %s (%s)",
-                   errMsg, stCode))
+      # Get the last version number from the policy config and bump it up by 0.0.1.
+      polConf <- Guardener::GgetPolicy(
+        refreshToken = refreshToken,
+        baseurl = baseurl,
+        policyId = policyId,
+        assignNms = FALSE)
+      els <- strsplit(x = polConf$version, split = ".", fixed = TRUE)[[1]]
+      els[length(els)] <- as.numeric(els[length(els)]) + 1
+      newVersionNo <- paste(els, collapse = ".")
     }
   }
-
 
   # Make the publication request.
   {
@@ -143,22 +236,20 @@ GmakePolicyCopy <- function(refreshToken,
       baseurl = baseurl)
 
     # Make the actual request.
-    # TODO. Determine the policy version.
     res <- httr::PUT(
       url = sprintf("%sapi/v1/policies/push/%s/publish",
                     baseurl,
-                    res2$result$policyId),
+                    policyId),
       httr::add_headers(
         Authorization = sprintf("Bearer %s", accessToken)),
-      body = list(policyVersion = "1.0.0")) # TODO.
+      body = list(policyVersion = newVersionNo))
 
     # Process the result.
     {
       if (res$status_code != 202) {
         stCode <- res$status_code
         errMsg <- httr::content(res, as = "parsed")
-        stop(sprintf("Failed to publish policy: %s (%s)",
-                     stCode, errMsg))
+        stop(sprintf("Failed to publish policy: %s (%s)", stCode, errMsg))
       }
 
       res <- httr::content(res, as = "parsed")
@@ -167,12 +258,47 @@ GmakePolicyCopy <- function(refreshToken,
       {
         taskId <- res$taskId
 
-        res <- Guardener::GgetTaskStatus(
-          refreshToken = refreshToken,
-          baseurl = baseurl,
-          taskId = taskId)
+        bDone <- FALSE
+        while (!bDone) {
 
-        # TODO.
+          res <- GgetTaskStatus( #Guardener::
+            refreshToken = refreshToken,
+            baseurl = baseurl,
+            taskId = taskId)
+
+          if ("error" %in% names(res)) {
+            if (length(res$error) > 0) {
+              if (length(res$error$code) > 0 || length(res$error$message) > 0) {
+                stop(sprintf("Failed to publish policy: %s (%s)",
+                             res$error$message, res$error$code))
+              }
+            }
+          }
+
+          if ("result" %in% names(res)) {
+
+            if ("errors" %in% names(res$result)) {
+              if (length(res$result$errors) > 0) {
+                if ("errors" %in% names(res$result$errors)) {
+                  if (length(res$result$errors$errors) > 0) {
+                    stop("Failed to publish policy. Errors: ",
+                         paste(res$result$errors$errors, collapse = "; "))
+                  }
+                }
+              }
+            }
+
+            if ("isValid" %in% names(res$result)) {
+              if (!res$result$isValid) {
+                stop("Failed to publish policy. The policy is not valid.")
+              }
+            }
+
+            bDone <- TRUE
+
+          }
+
+        }
       }
     }
   }
