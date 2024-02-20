@@ -4,16 +4,16 @@
 \alias{GregisterAccount}
 \title{GregisterAccount}
 \usage{
-GregisterAccount(baseurl, un, pw, role = "USER")
+GregisterAccount(un, pw, role = "USER", baseurl = "http://localhost:3000/")
 }
 \arguments{
-\item{baseurl}{Character. URL where /api/ is hosted. Default "http://localhost:3000/".}
-
 \item{un}{Character. The username to be registered.}
 
 \item{pw}{Character. The password to be registered.}
 
 \item{role}{Character. The Guardian user type to be registered. Defaults to "USER".}
+
+\item{baseurl}{Character. URL where /api/ is hosted. Default "http://localhost:3000/".}
 }
 \value{
 A list with at least the following elements:

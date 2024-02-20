@@ -2,13 +2,13 @@
 #' GmakeBody
 #'
 #' @param document Named list or data frame with data to submit. Names must correspond to field names in Schema
-#' @param schemaID Character
-#' @param schemaIPFSurl Character
-#'
-#' @return
+#' @param schemaID Character.
+#' @param schemaIPFSurl Character.
 #' @export
 
-GmakeBody <- function(document = NULL, schemaID = NULL, schemaIPFSurl = NULL){
+GmakeBody <- function(document = NULL,
+                      schemaID = NULL,
+                      schemaIPFSurl = NULL){
 
   if ( is.data.frame(document)) document <- as.list(document)
   if (!is.list(document)) stop("document must be a list")

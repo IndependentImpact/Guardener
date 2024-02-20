@@ -14,10 +14,10 @@
 #'  - role: The user's role (e.g., "STANDARD_REGISTRY or "USER")
 #' @export
 #'
-GregisterAccount <- function(baseurl,
-                             un,
+GregisterAccount <- function(un,
                              pw,
-                             role = "USER") {
+                             role = "USER",
+                             baseurl = "http://localhost:3000/") {
 
   # Make the query.
   res <- httr::POST(url = sprintf("%sapi/v1/accounts/register", baseurl),
@@ -25,10 +25,10 @@ GregisterAccount <- function(baseurl,
                           password = pw,
                           password_confirmation = pw,
                           role = role))
-
   if (res$status_code != 201) {
-    stop(sprintf("Failed to create an account for user '%s' on Guardian instance at '%s'. Status code: %s",
-                 un, baseurl, res$status_code))
+    res <- httr::content(res, as = "parsed")
+    stop(sprintf("Failed to create an account for user '%s' on Guardian instance at '%s'. Status code: %s. Message: %s",
+                 un, baseurl, res$statusCode, res$message))
   }
 
   # Process the result.

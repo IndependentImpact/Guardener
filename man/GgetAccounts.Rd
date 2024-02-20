@@ -16,7 +16,7 @@ to "http://localhost:3000/".}
 Data frame.
 }
 \description{
-Returns all users except those with roles Standard Registry and
-  Auditor. Only users with the Standard Registry role are allowed to make the
-  request.
+Returns all users on the targeted Guardian instance, except those
+  with roles Standard Registry and Auditor. Only users with the Standard
+  Registry role are allowed to make the request.
 }

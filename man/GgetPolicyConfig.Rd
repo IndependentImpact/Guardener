@@ -9,8 +9,7 @@ GgetPolicyConfig(
   baseurl = "http://localhost:3000/",
   policyId = NULL,
   returndf = FALSE,
-  verbose = FALSE,
-  ...
+  verbose = FALSE
 )
 }
 \arguments{
@@ -21,8 +20,6 @@ GgetPolicyConfig(
 \item{policyId}{haracter. Typically from the $id item of the result of GgetPolicies()}
 
 \item{returndf}{Return a tibble or not Default FALSE.}
-
-\item{...}{}
 }
 \description{
 Title

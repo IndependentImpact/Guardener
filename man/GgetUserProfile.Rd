@@ -4,12 +4,12 @@
 \alias{GgetUserProfile}
 \title{GgetUserProfile}
 \usage{
-GgetUserProfile(refreshToken, username, baseurl = "http://localhost:3000/")
+GgetUserProfile(refreshToken, un, baseurl = "http://localhost:3000/")
 }
 \arguments{
 \item{refreshToken}{Character. JWT refresh token returned by Glogin()$refreshToken.}
 
-\item{username}{Character. Username of the user for whom to retrieve the profile.}
+\item{un}{Character. Username of the user for whom to retrieve the profile.}
 
 \item{baseurl}{Character. Base url. Defaults to "http://localhost:3000/".}
 }

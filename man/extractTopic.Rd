@@ -2,18 +2,13 @@
 % Please edit documentation in R/convenienceFunctions.R
 \name{extractTopic}
 \alias{extractTopic}
-\title{extractTopic
-Convenience function to extract topicId from policy}
+\title{extractTopic}
 \usage{
 extractTopic(policy)
 }
 \arguments{
-\item{policy}{}
+\item{policy}{Character.}
 }
 \description{
-extractTopic
-Convenience function to extract topicId from policy
-}
-\examples{
-extractTopic(policy)
+Convenience function to extract topicId from policy.
 }

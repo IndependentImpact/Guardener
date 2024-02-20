@@ -10,7 +10,8 @@
 GgetPolicy <- function(refreshToken,
                        baseurl = "http://localhost:3000/",
                        policyId = NULL,
-                       returndf = FALSE){
+                       returndf = FALSE,
+                       assignNms = TRUE){
 
   if (is.null(policyId)) stop("I need a policyID")
 
@@ -20,19 +21,24 @@ GgetPolicy <- function(refreshToken,
 
   # Make the request for the policy.
   url <- sprintf("%sapi/v1/policies/%s", baseurl, policyId)
-  raw <- httr::GET(
+  res <- httr::GET(
     url = url,
     httr::add_headers(Authorization = sprintf("Bearer %s", accessToken)))
 
-  if (raw$status_code != 200) {
+  if (res$status_code != 200) {
     stop(sprintf("Error: Query returned status code %s.", raw$status_code))
   }
 
-  res <-  httr::content(raw)
-  res$config <- assignNames(res$config)
+  res <-  httr::content(res)
+
+  if (assignNms) {
+    res$config <- assignNames(res$config)
+  }
+
   if (returndf){
     df <- Glist2tibble(res)
     return(df)
   }
+
   return(res)
 }

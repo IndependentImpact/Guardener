@@ -6,12 +6,6 @@
 \usage{
 Gdocument2tibble(d)
 }
-\arguments{
-\item{tibble}{}
-}
-\value{
-tibble
-}
 \description{
 Gdocument2tibble
 }

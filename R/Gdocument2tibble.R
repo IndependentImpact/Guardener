@@ -1,12 +1,6 @@
 
-#' Gdocument2tibble
-#'
-#' @param tibble
-#'
-#' @return tibble
+#' @title Gdocument2tibble
 #' @export
-#'
-#' @examples
 
 Gdocument2tibble <- function(d){
   bd <- jsonlite::fromJSON(d)

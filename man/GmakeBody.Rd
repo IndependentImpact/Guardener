@@ -9,9 +9,9 @@ GmakeBody(document = NULL, schemaID = NULL, schemaIPFSurl = NULL)
 \arguments{
 \item{document}{Named list or data frame with data to submit. Names must correspond to field names in Schema}
 
-\item{schemaID}{Character}
+\item{schemaID}{Character.}
 
-\item{schemaIPFSurl}{Character}
+\item{schemaIPFSurl}{Character.}
 }
 \description{
 GmakeBody

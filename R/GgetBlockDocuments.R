@@ -1,6 +1,5 @@
 #' GgetBlockDocuments
 #'
-#' @description
 #' @param refreshToken Character. JWT refresh token returned by Glogin()$refreshToken.
 #' @param policyId Character. ID of the policy from which to retrieve the documents.
 #' @param blockId Character. ID of the block from which to retrieve the documents.

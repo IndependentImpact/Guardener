@@ -2,11 +2,10 @@
 #' @description take the list comming out of GgetSchemas and make a tibble with 1 schema detail per row
 #' @param schemas list
 #' @return tibble
+#' @example
+#'    Gschema2tibble(GgetSchemas(AT))
 #' @export
-#' @example Gschema2tibble(GgetSchemas(AT)) %>%
-#' select(`_id`, name, description, system, active, fields, fieldnames) %>%
-#' group_by(name) %>% tidyr::nest()
-
+#'
 Gschema2tibble <- function(schemas){
   dfSchemas <- map_df(schemas, ~Glist2tibble(.))
   dfSchemas$document <- map(dfSchemas$document, Gdocument2tibble)
@@ -21,3 +20,4 @@ Gschema2tibble <- function(schemas){
 
 # Gschema2tibble(GgetSchemas(AT)) %>% select(`_id`, name, description, system, active, fields, fieldnames) %>% group_by(name) %>% tidyr::nest()
 #  dfpars <- map_df(dfSchemas$document, ~pluck(., "properties", 1, 4))
+
