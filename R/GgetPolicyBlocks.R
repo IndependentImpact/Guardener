@@ -41,6 +41,7 @@ GgetPolicyBlocks <- function(refreshToken = NULL,
   }
 
   res <- res %>%
+    filter(!grepl("uiMetaData", name.rest)) %>%
     mutate(data = purrr::map_df(data, ~tidyr::pivot_wider(., names_from = label, values_from = value))) %>%
     tidyr::unnest(cols = c(data)) %>%
     ungroup() %>%
