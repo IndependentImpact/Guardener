@@ -20,3 +20,4 @@ Gschema2tibble <- function(schemas){
 
 # Gschema2tibble(GgetSchemas(AT)) %>% select(`_id`, name, description, system, active, fields, fieldnames) %>% group_by(name) %>% tidyr::nest()
 #  dfpars <- map_df(dfSchemas$document, ~pluck(., "properties", 1, 4))
+
