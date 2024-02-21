@@ -18,7 +18,7 @@ GgetSchema <- function(refreshToken,
                                  baseurl = baseurl)
 
   # Make the query.
-  url = sprintf("%sapi/v1/schema/%s", baseurl, gsub("#","", schemaId))
+  url <- sprintf("%sapi/v1/schema/%s", baseurl, gsub("#","", schemaId))
   res <- httr::GET(url = url,
                    httr::add_headers(Authorization = sprintf("Bearer %s", accessToken)))
 
