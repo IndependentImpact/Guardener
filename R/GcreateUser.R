@@ -50,6 +50,9 @@ GcreateUser <- function(un,
     lsReturn$hash_password <- res$password
     lsReturn$role <- res$role
     lsReturn$id <- res$id
+
+    lsReturn$did <- NULL
+    lsReturn$didDocMessageId <- NULL
   }
 
   # 2. Log new Guardian user in to the Guardian instance.
@@ -76,13 +79,26 @@ GcreateUser <- function(un,
 
   # 4. Get the user's newly created DID etc..
   {
-    res <- Guardener::GgetUserProfile(
-      refreshToken = lsReturn$refreshToken,
-      un = un,
-      baseurl = baseurl)
+    tNow <- Sys.time()
+    while ((length(lsReturn$didDocMessageId) == 0) & (Sys.time() < (tNow + 15))) {
 
-    lsReturn$did <- res$did
-    lsReturn$didDocMessageId <- res$didDocMessageId
+      res <- Guardener::GgetUserProfile(
+        refreshToken = lsReturn$refreshToken,
+        un = un,
+        baseurl = baseurl)
+
+      lsReturn$did <- res$did
+      lsReturn$didDocMessageId <- res$didDocMessageId
+    }
+
+    if (res$failed | !res$confirmed) {
+      stop(sprintf("Profile setup failed for user '%s'. 'failed' = %s, 'confirmed' = %s.",
+              un, res$failed, res$confirmed))
+    }
+
+    if (length(lsReturn$didDocMessageId) == 0) {
+      message("WARNING: Failed to retrieve 'didDocMessageId' via GgetUserProfile.")
+    }
   }
 
   # Done.
