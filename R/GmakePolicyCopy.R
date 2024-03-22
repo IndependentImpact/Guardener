@@ -78,6 +78,8 @@ GmakePolicyCopy <- function(refreshToken,
 
   # Make the copy request.
   {
+    message("Starting copy task...")
+
     # Get access token for this request.
     accessToken <- GgetAccessToken(
       refreshToken = refreshToken,
@@ -118,6 +120,8 @@ GmakePolicyCopy <- function(refreshToken,
 
     # Wait for the task to finish.
     {
+      message("Waiting for copy task to finish...")
+
       taskId <- res$taskId
 
       bDone <- FALSE
@@ -146,11 +150,11 @@ GmakePolicyCopy <- function(refreshToken,
                 policyId <- res$result$policyId
                 bDone <- TRUE
               }
+            }
           }
         }
       }
     }
-  }
 
   }
 
@@ -158,6 +162,8 @@ GmakePolicyCopy <- function(refreshToken,
   # (At this point the name will have an ugly tag behind it, e.g.,
   # "ICP - Agent Application Subpolicy (API-only)_1708102794423")
   if (length(newName) == 1) {
+
+    message("Renaming policy copy...")
 
     tryCatch({
 
@@ -230,6 +236,8 @@ GmakePolicyCopy <- function(refreshToken,
 
   # Make the publication request.
   {
+    message("Starting policy publication task...")
+
     # Get access token for this request.
     accessToken <- GgetAccessToken(
       refreshToken = refreshToken,
@@ -256,6 +264,8 @@ GmakePolicyCopy <- function(refreshToken,
 
       # Wait for the publication to finish.
       {
+        message("Waiting for policy publication task to finish...")
+
         taskId <- res$taskId
 
         bDone <- FALSE
