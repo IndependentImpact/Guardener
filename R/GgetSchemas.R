@@ -50,9 +50,6 @@ GgetSchemas <- function(refreshToken,
     stop(sprintf("Error: Query returned status code %s.", res$status_code))
   }
 
-  # TODO. Remove after debugging.
-  save(res, file = "C:/Users/ALIIIX/Documents/Nova/PROJECTS/AARTUM/Hedera/Guardener/res.Rda")
-
   res <- httr::content(res)
 
   # Assign schema IRIs as list names
