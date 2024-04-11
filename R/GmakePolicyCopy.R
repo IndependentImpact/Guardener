@@ -156,6 +156,13 @@ GmakePolicyCopy <- function(refreshToken,
       }
     }
 
+    # Check for unknown errors.
+    {
+      if (length(policyId) == 0) {
+        stop("No policyId returned, but no errors returned either.")
+      }
+    }
+
   }
 
   # Try to change the policy's name, if the user provided a new name.
