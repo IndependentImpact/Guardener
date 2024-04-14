@@ -28,7 +28,7 @@ Gpost2block <- function(x,
     body = x,
     encode = "json")
 
-  if (!res$status_code == 200) {
+  if (res$status_code != 200) {
     stop(sprintf("ERROR. Failed to post to block. Status code: %s",
                  res$status_code))
   }
