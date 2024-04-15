@@ -37,8 +37,9 @@ GgetSchemas <- function(refreshToken,
   }
 
   # Get access token for this query.
-  accessToken <- GgetAccessToken(refreshToken = refreshToken,
-                                 baseurl = baseurl)
+  accessToken <- Guardener::GgetAccessToken(
+    refreshToken = refreshToken,
+    baseurl = baseurl)
 
   # Make the query.
   res <- httr::GET(url = url,
@@ -56,7 +57,7 @@ GgetSchemas <- function(refreshToken,
   names(res) <- sapply(X = res, FUN = function(x) x$iri)
 
   if (returndf){
-    df <- Gschema2tibble(res)
+    df <- Guardener::Gschema2tibble(res)
     return(df)
   }
 
