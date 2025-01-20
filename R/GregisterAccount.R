@@ -21,10 +21,11 @@ GregisterAccount <- function(un,
 
   # Make the query.
   res <- httr::POST(url = sprintf("%sapi/v1/accounts/register", baseurl),
-              body = list(username = un,
-                          password = pw,
-                          password_confirmation = pw,
-                          role = role))
+                    body = list(username = un,
+                                password = pw,
+                                password_confirmation = pw,
+                                role = role),
+                    encode = "json")
   if (res$status_code != 201) {
     res <- httr::content(res, as = "parsed")
     stop(sprintf("Failed to create an account for user '%s' on Guardian instance at '%s'. Status code: %s. Message: %s",

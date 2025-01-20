@@ -15,7 +15,8 @@ Glogin <- function(un = Sys.getenv("guardianUn"),
                    returnraw = FALSE){
 
   xLogin <- httr::POST(url = sprintf("%sapi/v1/accounts/login", baseurl),
-       body = list(username = un, password = pw))
+       body = list(username = un, password = pw),
+       encode = "json")
 
   if (xLogin$status_code != 200) {
     res <- httr::content(xLogin, as = "parsed")

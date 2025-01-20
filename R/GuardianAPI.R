@@ -5,7 +5,8 @@ library(httr)
 {
   xLogin <- POST(url = "http://localhost:3000/api/v1/accounts/login",
                  body = list(username = "bipmk30k",
-                             password = "test"))
+                             password = "test"),
+                 encode = "json")
   xLogin <- parsed_content(xLogin)
 }
 
@@ -93,7 +94,8 @@ library(httr)
   # Log in as a non-SR user associated with the policy.
   xLogin <- POST(url = "http://localhost:3000/api/v1/accounts/login",
                  body = list(username = "rt7y35un",
-                             password = "test"))
+                             password = "test"),
+                 encode = "json")
   xLogin <- parsed_content(xLogin)
 
   # Choose role.

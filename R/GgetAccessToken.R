@@ -9,7 +9,8 @@ GgetAccessToken <- function(refreshToken,
                             baseurl = "http://localhost:3000/") {
 
   res <- httr::POST(url = sprintf("%sapi/v1/accounts/access-token", baseurl),
-             body = list(refreshToken = refreshToken))
+                    body = list(refreshToken = refreshToken),
+                    encode = "json")
   if (res$status_code != 201) {
     stop(sprintf("Error: Query returned status code %s.", res$status_code))
   }

@@ -42,7 +42,8 @@ GcopyPolicy <- function(refreshToken,
       url = sprintf("%sapi/v1/policies/push/import/message", baseurl),
       httr::add_headers(
         Authorization = sprintf("Bearer %s", accessToken)),
-      body = list(messageId = messageId))
+      body = list(messageId = messageId),
+      encode = "json")
 
   } else { # Copy via file.
 
