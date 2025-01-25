@@ -34,11 +34,17 @@ GsetUpProfile <- function(refreshToken,
                      role = role,
                      parent = parentDid,
                      hederaAccountId = hederaAccountId,
-                     hederaAccountKey = hederaAccountKey))
+                     hederaAccountKey = hederaAccountKey,
+                     useFireblocksSigning = FALSE,
+                     fireblocksConfig = list(
+                       fireBlocksVaultId = "",
+                       fireBlocksAssetId = "",
+                       fireBlocksApiKey = "",
+                       fireBlocksPrivateiKey = "")))
 
   # Process the result.
   {
-    if (res$status_code != 204) {
+    if (res$status_code < 200 | res$status_code > 299) {
       errMsg <- httr::content(res, as = "parsed")
       stop(errMsg)
     }
