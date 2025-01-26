@@ -40,7 +40,8 @@ GsetUpProfile <- function(refreshToken,
                        fireBlocksVaultId = "",
                        fireBlocksAssetId = "",
                        fireBlocksApiKey = "",
-                       fireBlocksPrivateiKey = "")))
+                       fireBlocksPrivateiKey = "")),
+                   encode = "json")
 
   # Process the result.
   {

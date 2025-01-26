@@ -35,7 +35,8 @@ GassociateUserToken <- function(refreshToken,
   res <- httr::PUT(url = sprintf("%sapi/v1/tokens/%s/associate",
                                  baseurl, tokenId),
                    httr::add_headers(Authorization = sprintf("Bearer %s",
-                                                             accessToken)))
+                                                             accessToken)),
+                   encode = "json")
   if (res$status_code != 200) {
     stop(sprintf("Failed to associate user with token %s. status_code: %s",
                  tokenId, res$status_code))
