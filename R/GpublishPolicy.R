@@ -64,11 +64,12 @@ GpublishPolicy <- function(refreshToken,
                   policyId),
     httr::add_headers(
       Authorization = sprintf("Bearer %s", accessToken)),
-    body = list(policyVersion = newVersionNo))
+    body = list(policyVersion = newVersionNo),
+    encode = "json")
 
   # Process the result.
   {
-    if (res$status_code != 202) {
+    if (res$status_code < 200 | res$status_code > 299) {
       stCode <- res$status_code
       errMsg <- httr::content(res, as = "parsed")
       stop(sprintf("Failed to publish policy: %s (%s)", stCode, errMsg))
@@ -139,7 +140,7 @@ GpublishPolicy <- function(refreshToken,
     }
   }
 
-  # Return the policyId.
+  # Return TRUE.
   return(TRUE)
 
 }

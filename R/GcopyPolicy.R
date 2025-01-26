@@ -59,7 +59,7 @@ GcopyPolicy <- function(refreshToken,
 
   # Process the result.
   {
-    if (res$status_code != 202) {
+    if (res$status_code < 200 || res$status_code > 299) {
       stCode <- res$status_code
       errMsg <- httr::content(res, as = "parsed")
       stop(sprintf("Failed to make policy copy: %s (%s)",
